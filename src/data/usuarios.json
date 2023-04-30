@@ -1,0 +1,26 @@
+[
+  {
+    "id":1,
+    "name": "1",
+    "email": "1@mecnet.com",
+    "user": "1",
+    "password": "1",
+    "isAdm":false
+   },
+   {
+    "id":2,
+    "name": "2",
+    "email": "2@mecnet.com",
+    "user": "2",
+    "password": "2",
+    "isAdm":false
+   },
+   {
+    "id":3,
+    "name": "admin",
+    "email": "admin@mecnet.com",
+    "user": "admin",
+    "password": "admin",
+    "isAdm":true
+   }
+]
