@@ -1,22 +1,16 @@
 import styled from "styled-components";
 
 export const Conteiner = styled.div`
-	display: flex;
-	flex-direction: row;
-	background: var(--color-white);
-	width: 100;
-	height: 100vh;
-	width: 100vw;
-	display: flex;
+  display: grid;
+  grid-template-columns: 200px 1100px;
+  background: var(--color-white);
+  width: 100%;
+  gap: 15px;
+  min-height: 100vh;
 
-	.navbar {
-		width: 230px;
-		background: var(--color-blue);
-		border-radius: 0 45px 45px 0;
-	}
-
-	h2 {
-		margin: 10px 0;
-		font-weight: 800;
-	}
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

@@ -54,7 +54,9 @@ export function Vendas() {
   return (
     <Conteiner>
       <SiderBar items={array} />
-      <Text text="Vendas" color="black" type="h3" styled="normal" />
+      <main>
+        <Text text="Vendas" color="black" type="h3" styled="normal" />
+      </main>
     </Conteiner>
   );
 }

@@ -1,10 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./data/contexts/auth";
-import { Routes, Route } from "react-router-dom";
 
 import { Login } from "./pages/Login";
 import * as P from "./pages/index";
+
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -23,7 +23,6 @@ function App() {
           <Login />
         </>
       )}
-      {/* <SiderBar /> */}
     </BrowserRouter>
   );
 }
