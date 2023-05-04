@@ -61,9 +61,6 @@ export function AuthProvider(props: AuthProvider) {
   function addEmployee(_employee: User) {
     employees.push(_employee);
   }
-  useEffect(() => {
-    setUser(employees[2]);
-  }, []);
 
   return (
     <AuthContext.Provider
