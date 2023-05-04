@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
-import React, { useEffect } from "react";
+import React from "react";
 import { createContext, ReactNode, useState } from "react";
 
 export type User = {

@@ -1,7 +1,7 @@
 import { BsPen, BsTrash3 } from "react-icons/bs";
 import { useAuth } from "../../../data/contexts/auth";
 import { Conteiner } from "./styles";
-import { redirect } from "react-router-dom";
+
 
 export function Table() {
   const { employees } = useAuth();

@@ -5,7 +5,7 @@ import { Button } from "../../ui/components/Button";
 
 import { useAuth } from "../../data/contexts/auth";
 import { BsXCircle } from "react-icons/bs";
-import { useEffect } from "react";
+
 
 type IFormLogin = {
   name: string;
