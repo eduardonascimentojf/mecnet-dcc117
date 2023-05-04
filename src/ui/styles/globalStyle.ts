@@ -15,11 +15,22 @@ const GlobalStyle = createGlobalStyle`
   -webkit-text-size-adjust: 100%;
 
   --color-black: #000000;
+
   --color-white: #FFFFFF;
+  --color-white-secondary: #f3f3f3;
+  
   --color-gray: #E4E4E4;
+  --color-gray-secondary: #dddddd;
   
   --color-light-blue: #1E5BB4;
   --color-blue: #192F4F;
+
+  --color-light-red:   #f94721  ;
+  --color-red:   #c22200  ;
+ 
+  --color-light-green:   #229e03 ;
+  --color-green: #009879;
+
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -85,7 +96,36 @@ input{
     background-color: #f9f9f9;
   }
 }
+#root >div:not(.login){
 
+  display: grid;
+  grid-template-columns: 200px 1100px;
+  background: var(--color-white);
+  width: 100%;
+  gap: 15px;
+  min-height: 100vh;
+  > h1 {
+    text-align: center;
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--color-gray);
+    margin: 15px 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    overflow-x: auto;
+    border-radius: 15px;
+    border: 2px solid var(--color-gray);
+    margin: 10px 0;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 `;
 
 export default GlobalStyle;

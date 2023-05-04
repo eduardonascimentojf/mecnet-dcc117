@@ -11,12 +11,13 @@ function App() {
     <BrowserRouter>
       {user ? (
         <Routes>
-          <Route path="/" element={<P.Home />} />
+          <Route path="/" element={<P.Home />} id="route" />
           <Route path="/produtos" element={<P.Produtos />} />
           <Route path="/pedidos" element={<P.Pedidos />} />
           <Route path="/estoque" element={<P.Estoque />} />
           <Route path="/vendas" element={<P.Vendas />} />
-          <Route path="/funcionarios" element={<P.Funcionarios />} />
+          <Route path="/funcionarios" element={<P.Funcionarios />} id="route" />
+          <Route path="" />
         </Routes>
       ) : (
         <>

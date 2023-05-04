@@ -30,8 +30,8 @@ export function SiderBar(props: Props) {
             icon={<BsHouseDoor />}
           />
         </Link>
-        {props.items?.map((component) => (
-          <>{component}</>
+        {props.items?.map((component, i) => (
+          <div key={i}>{component}</div>
         ))}
       </ul>
       {props.home == true ? (
