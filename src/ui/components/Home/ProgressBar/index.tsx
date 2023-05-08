@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Text } from "../../Text";
 import { Conteiner } from "./styles";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export function ProgressBar({ class_name }: Props) {
+  const [first] = useState(Math.round(Math.random() * 100));
+
   return (
     <Conteiner className={class_name}>
       <div className="header">
@@ -38,7 +41,7 @@ export function ProgressBar({ class_name }: Props) {
       </div>
 
       <div className="progress_bar">
-        <CircularProgressbar value={60} text={`${60}%`} />
+        <CircularProgressbar value={first} text={`${first}%`} />
       </div>
     </Conteiner>
   );

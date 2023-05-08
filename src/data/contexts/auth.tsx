@@ -67,18 +67,18 @@ export function AuthProvider(props: AuthProvider) {
     employees.map((employee: User, i: number) => {
       if (employee.id == _employeeId) {
         employees.splice(i, 1);
+        toast.success("Funcionário removido com sucesso!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
         return;
       }
-      toast.success("Funcionário removido com sucesso!", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
     });
   }
   useEffect(() => {
@@ -88,7 +88,7 @@ export function AuthProvider(props: AuthProvider) {
         autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "dark",

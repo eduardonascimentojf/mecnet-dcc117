@@ -39,7 +39,7 @@ export function Estoque() {
     <Conteiner>
       <SiderBar items={array} />
       <main>
-        <Text text="Produtos" color="black" type="h1" styled="normal" />
+        <Text text="Estoque" color="black" type="h1" styled="normal" />
         <Search />
         <div className="grid">
           {product?.products.map((iten, i) => (

@@ -25,10 +25,10 @@ export function Login() {
   const onSubmit: SubmitHandler<IFormLogin> = (data) =>
     login(data.user, data.password);
 
-  function login(_name: string, _password: string) {
+  function login(_user: string, _password: string) {
     employees.forEach((element) => {
       if (
-        element.name.toString() == _name &&
+        element.user.toString() == _user &&
         element.password.toString() == _password
       ) {
         setUser(element);
@@ -39,7 +39,7 @@ export function Login() {
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
+      pauseOnHover: false,
       draggable: true,
       progress: undefined,
       theme: "dark",
@@ -50,6 +50,7 @@ export function Login() {
       <Text text="BEM VINDO" type="h4" styled="normal" color="white" />
       <div className="mecnet">
         <img src={mecnet} className="logo" alt="Mecnet logo" />
+
         <Text text="MECNET" type="h2" styled="normal" color="white" />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

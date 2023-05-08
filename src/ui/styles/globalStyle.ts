@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
   --color-light-blue: #1E5BB4;
   --color-blue: #192F4F;
 
-  --color-red-rgba:   194, 034, 000
+  --color-red-rgba:   194, 034, 000;
   --color-light-red:   #f94721;
   --color-red:   #c22200;
  
@@ -139,6 +139,7 @@ ul, li{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 25px;
   }
 }
 }

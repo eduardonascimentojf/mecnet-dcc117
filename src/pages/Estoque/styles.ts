@@ -22,6 +22,14 @@ export const Conteiner = styled.div`
     border: 2px solid var(--color-gray);
     margin: 10px 0;
   }
+  .notFound {
+    word-break: break-word;
+    width: 500px;
+    text-align: center;
+    position: relative;
+    top: 100px;
+    font-size: 40px;
+  }
 
   main {
     display: flex;

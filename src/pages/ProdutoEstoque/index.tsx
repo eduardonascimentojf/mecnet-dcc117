@@ -20,7 +20,7 @@ export function ProdutoEstoque() {
   const { product, getProductById } = useProduct();
   const { user } = useAuth();
   const splitLocation = pathname.split("/");
-  const [editAuto, seteditAuto] = useState(false);
+  const [editAuto, seteditAuto] = useState(Math.random() < 0.5);
   const array: ReactNode[] = [
     <Link to="/pedidos">
       <SiderBarItens

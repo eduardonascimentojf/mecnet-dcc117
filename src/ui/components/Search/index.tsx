@@ -11,9 +11,9 @@ type IFormInput = {
 export function Search() {
   const { register, handleSubmit } = useForm<IFormInput>();
   const { searchProducts } = useProduct();
-  const onSubmit: SubmitHandler<IFormInput> = (data) =>
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
     searchProducts(data.search);
-
+  };
   const [filterIsOpen, setIsOpen] = useState(false);
 
   function openFilter() {

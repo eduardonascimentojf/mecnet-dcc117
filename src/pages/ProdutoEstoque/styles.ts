@@ -6,6 +6,7 @@ export const Conteiner = styled.div`
     text-align: start;
     font-size: larger;
     font-weight: bold;
+    margin-bottom: 20px;
   }
   .gridProduct {
     width: 100%;
@@ -13,6 +14,7 @@ export const Conteiner = styled.div`
     display: grid;
     grid-template-columns: 450px 450px;
     gap: 20px;
+    margin-bottom: 20px;
 
     img {
       height: 180px;
