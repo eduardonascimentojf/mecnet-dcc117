@@ -14,22 +14,31 @@ const GlobalStyle = createGlobalStyle`
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+  --color-black-rgba: 000, 000, 000;
   --color-black: #000000;
 
+  --color-white-rgba: 255, 255, 255;
   --color-white: #FFFFFF;
   --color-white-secondary: #f3f3f3;
   
+  --color-gray-rgba: 228, 228, 228;
   --color-gray: #E4E4E4;
   --color-gray-secondary: #dddddd;
   
+  --color-blue-rgba: 025, 047, 079;
   --color-light-blue: #1E5BB4;
   --color-blue: #192F4F;
 
-  --color-light-red:   #f94721  ;
-  --color-red:   #c22200  ;
+  --color-red-rgba:   194, 034, 000
+  --color-light-red:   #f94721;
+  --color-red:   #c22200;
  
-  --color-light-green:   #229e03 ;
+  --color-green-rgba: 034, 158, 003;
+  --color-light-green: #229e03;
   --color-green: #009879;
+
+  --color-yellow-rgba: 228, 243, 010;
+  --color-light-yellow: #e4f30a
 
 }
 html, body, div, span, applet, object, iframe,
@@ -84,6 +93,9 @@ input{
   outline: none;
   box-sizing: border-box
 }
+ul, li{
+  list-style-type: none;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -96,7 +108,10 @@ input{
     background-color: #f9f9f9;
   }
 }
-#root >div:not(.login){
+#root >div:not(.login) 
+{
+&:not(.notification){
+
 
   display: grid;
   grid-template-columns: 200px 1100px;
@@ -125,6 +140,7 @@ input{
     flex-direction: column;
     align-items: center;
   }
+}
 }
 `;
 

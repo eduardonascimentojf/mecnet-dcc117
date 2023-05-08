@@ -14,6 +14,21 @@ export const Conteiner = styled.div`
     width: 360px;
     margin: 5px 0;
   }
+  .mecnet {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    img {
+      width: 60px;
+      height: 60px;
+    }
+    h2 {
+      margin: 10px 0;
+      font-weight: 800;
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -22,9 +37,15 @@ export const Conteiner = styled.div`
       color: black;
       border-radius: 1em;
     }
-  }
-  h2 {
-    margin: 10px 0;
-    font-weight: 800;
+    button {
+      transition: all 0.8s ease 0s;
+      p {
+        margin: 0;
+        width: 100%;
+      }
+      :hover {
+        background-color: var(--color-white);
+      }
+    }
   }
 `;

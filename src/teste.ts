@@ -29,4 +29,5 @@ export const ConteinerAPP = styled(BrowserRouter)`
     flex-direction: column;
     align-items: center;
   }
+  
 `;

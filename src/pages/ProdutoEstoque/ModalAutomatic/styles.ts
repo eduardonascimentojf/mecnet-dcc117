@@ -23,36 +23,34 @@ export const Conteiner = styled.div`
     cursor: pointer;
     align-self: flex-end;
     margin-right: 50px;
+    margin-top: 25px;
     :hover {
       background-color: red;
       fill: white;
     }
   }
   input {
-    width: 360px;
+    width: 150px;
     margin: 5px 0;
   }
   form {
     height: 400px;
     overflow-y: auto;
-    width: 900px;
+    margin: 50px;
+    width: 500px;
     .inputs {
       display: grid;
       grid-template-columns: auto auto;
+      align-items: center;
       gap: 20px;
-
+      .errorMessage {
+        text-align: center;
+      }
       .inputLabel {
         width: min-content;
+        margin: auto;
         span {
           margin-right: 5px;
-        }
-      }
-
-      .isAdm {
-        display: flex;
-        align-content: center;
-        span {
-          margin-right: 15px;
         }
       }
       .inputLabel {
@@ -65,11 +63,35 @@ export const Conteiner = styled.div`
         }
       }
     }
-    button {
-      margin-bottom: 40px;
-      align-self: flex-end;
-      :hover {
-        background-color: var(--color-white);
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      margin: 30px auto;
+      button {
+        cursor: pointer;
+        background-color: var(--color-light-blue);
+        padding: 1em 2em;
+        border-radius: 1em;
+        border: 1px solid var(--color-white);
+        color: var(--color-white);
+
+        &.confirm {
+          background-color: var(--color-green);
+        }
+        &.cancel {
+          background-color: var(--color-red);
+        }
+
+        :hover {
+          background-color: var(--color-white);
+          &.confirm {
+            color: var(--color-green);
+          }
+          &.cancel {
+            color: var(--color-red);
+          }
+        }
       }
     }
   }

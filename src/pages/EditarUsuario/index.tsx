@@ -17,28 +17,33 @@ type IFormLogin = {
 };
 interface Props {
   closeModal: () => void;
+  id: number;
 }
 
-export function NovoUsuario(props: Props) {
+export function EditarUsuario(props: Props) {
   const { employees } = useAuth();
+  const element = employees.find((element) => element.id == props.id);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<IFormLogin>();
 
-  const onSubmit: SubmitHandler<IFormLogin> = (data) => creatEmployee(data);
-  function creatEmployee(propsCreate: IFormLogin) {
-    employees.push({
-      id: employees.length,
-      name: propsCreate.name,
-      email: propsCreate.email,
-      password: propsCreate.password,
-      user: propsCreate.user,
-      isAdm: propsCreate.isAdm,
+  const onSubmit: SubmitHandler<IFormLogin> = (data) => updateEmployee(data);
+  function updateEmployee(propsEdit: IFormLogin) {
+    employees.map((employee) => {
+      if (employee.id == props.id) {
+        employee.name = propsEdit.name;
+        employee.email = propsEdit.email;
+        employee.user = propsEdit.user;
+        employee.password = propsEdit.password;
+        employee.isAdm = propsEdit.isAdm;
+        employee.id = props.id;
+      }
     });
+
     props.closeModal();
-    toast.success("Funcionário cadastrado com sucesso!", {
+    toast.success("Informação atualizada com sucesso!", {
       position: "top-right",
       autoClose: 1500,
       hideProgressBar: false,
@@ -57,7 +62,7 @@ export function NovoUsuario(props: Props) {
       <Text text="MECNET" type="h2" styled="normal" color="white" />
 
       <Text
-        text="Cadastre um funcionário"
+        text="Atualizar um funcionário"
         type="h4"
         styled="normal"
         color="white"
@@ -75,6 +80,7 @@ export function NovoUsuario(props: Props) {
             <input
               type="text"
               placeholder="Nome"
+              defaultValue={element?.name}
               {...register("name", {
                 required: true,
                 minLength: 5,
@@ -99,6 +105,7 @@ export function NovoUsuario(props: Props) {
             />
             <input
               type="email"
+              defaultValue={element?.email}
               placeholder="E-mail"
               {...register("email", {
                 required: true,
@@ -117,6 +124,7 @@ export function NovoUsuario(props: Props) {
             <Text color="white" styled="italic" text="Usuário" type="span" />
             <input
               type="text"
+              defaultValue={element?.user}
               placeholder="Usuário"
               {...register("user", {
                 required: true,
@@ -144,6 +152,7 @@ export function NovoUsuario(props: Props) {
             <input
               type="password"
               placeholder="Senha"
+              defaultValue={element?.password}
               {...register("password", {
                 required: true,
                 minLength: 6,
@@ -164,12 +173,12 @@ export function NovoUsuario(props: Props) {
             <CheckboxToggle
               type="checkbox"
               placeholder="É gerente"
-              defaultChecked={false}
+              defaultChecked={element?.isAdm}
               {...register("isAdm")}
             />
           </div>
         </div>
-        <Button text="Cadastrar" propsButton={{ type: "submit" }} />
+        <Button text="Atualizar" propsButton={{ type: "submit" }} />
       </form>
     </Conteiner>
   );

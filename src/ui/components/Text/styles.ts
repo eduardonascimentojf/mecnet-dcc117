@@ -24,6 +24,15 @@ export const H4 = styled.h4<TextProps>`
 export const Span = styled.span<TextProps>`
   color: ${(props) => props.color};
   font-style: ${(props) => props.styled};
+  .required {
+    color: red;
+  }
+`;
+export const ErrorRequired = styled.span<TextProps>`
+  color: var(--color-gray);
+  font-style: ${(props) => props.styled};
+  text-align: end;
+  font-size: smaller;
 `;
 export const P = styled.p<TextProps>`
   color: ${(props) => props.color};

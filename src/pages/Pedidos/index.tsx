@@ -19,6 +19,7 @@ export function Pedidos() {
         name="Pedidos"
         isSelected={splitLocation[1] === "pedidos"}
         icon={<BsCart2 />}
+        id={1}
       />
     </Link>,
   ];

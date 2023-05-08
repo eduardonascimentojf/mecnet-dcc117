@@ -39,19 +39,25 @@ export function Estoque() {
     <Conteiner>
       <SiderBar items={array} />
       <main>
-        <Text text="Estoque" color="black" type="h1" styled="normal" />
+        <Text text="Produtos" color="black" type="h1" styled="normal" />
         <Search />
         <div className="grid">
-          {product?.products.map((iten) => (
-            <ProdutosItens
-              category={iten.category}
-              id={iten.id}
-              images={iten.images}
-              price={iten.price}
-              title={iten.title}
-            />
+          {product?.products.map((iten, i) => (
+            <Link to={"/estoque/" + iten.id} key={i}>
+              <ProdutosItens
+                category={iten.category}
+                id={iten.id}
+                images={iten.images}
+                price={iten.price}
+                title={iten.title}
+                key={i}
+              />
+            </Link>
           ))}
         </div>
+        {!product?.products.length && (
+          <h3 className="notFound">Nenhum produto foi encontrado!</h3>
+        )}
       </main>
     </Conteiner>
   );

@@ -6,6 +6,18 @@ export const Conteiner = styled.div`
   align-items: center;
   justify-content: end;
   margin: 10px 0px;
+
+  .filter {
+    min-height: 100vh;
+    top: 0;
+    margin: 10px;
+
+    position: absolute;
+    &.closeFilter {
+      display: none;
+    }
+  }
+
   input {
     border: none;
     background-color: transparent;

@@ -34,13 +34,27 @@ export const Conteiner = styled.table`
     }
   }
   td:nth-child(5) {
+    cursor: pointer;
     svg {
       fill: var(--color-light-red);
     }
+    :hover {
+      background-color: var(--color-red);
+      svg {
+        fill: var(--color-white);
+      }
+    }
   }
   td:nth-child(4) {
+    cursor: pointer;
     svg {
       fill: var(--color-light-green);
+    }
+    :hover {
+      background-color: var(--color-light-green);
+      svg {
+        fill: var(--color-white);
+      }
     }
   }
 

@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
-import React from "react";
+import React, { useEffect } from "react";
 import { createContext, ReactNode, useState } from "react";
+import { toast } from "react-toastify";
 
 export type User = {
   id: number;
@@ -17,6 +18,7 @@ type AuthContextData = {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   employees: User[];
   signOut: () => void;
+  removeEmployee: (_employeeId: number) => void;
   addEmployee: (_employee: User) => void;
 };
 
@@ -61,10 +63,42 @@ export function AuthProvider(props: AuthProvider) {
   function addEmployee(_employee: User) {
     employees.push(_employee);
   }
+  function removeEmployee(_employeeId: number) {
+    employees.map((employee: User, i: number) => {
+      if (employee.id == _employeeId) {
+        employees.splice(i, 1);
+        return;
+      }
+      toast.success("Funcionário removido com sucesso!", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    });
+  }
+  useEffect(() => {
+    if (user !== null) {
+      toast.success("Login efetuado com sucesso!", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }, [user]);
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, employees, signOut, addEmployee }}
+      value={{ user, setUser, employees, signOut, addEmployee, removeEmployee }}
     >
       {props.children}
     </AuthContext.Provider>

@@ -52,13 +52,14 @@ export function Produtos() {
         <Text text="Produtos" color="black" type="h1" styled="normal" />
         <Search />
         <div className="grid">
-          {product?.products.map((iten) => (
+          {product?.products.map((iten, i) => (
             <ProdutosItens
               category={iten.category}
               id={iten.id}
               images={iten.images}
               price={iten.price}
               title={iten.title}
+              key={i}
             />
           ))}
         </div>

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
+
 import { SiderBar } from "../../ui/components/SiderBar";
-import { Text } from "../../ui/components/Text";
 import { Conteiner } from "./styles";
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { ReactNode } from "react";
@@ -12,6 +12,12 @@ import {
   BsPeople,
 } from "react-icons/bs";
 import { useAuth } from "../../data/contexts/auth";
+
+import "react-circular-progressbar/dist/styles.css";
+import { Graph } from "../../ui/components/Home/Graph";
+import { ProgressBar } from "../../ui/components/Home/ProgressBar";
+import { RequestsRecent } from "../../ui/components/Home/RequestsRecent";
+import { ExpiresSoon } from "../../ui/components/Home/ExpiresSoon";
 
 export function Home() {
   const location = useLocation();
@@ -64,9 +70,12 @@ export function Home() {
   return (
     <Conteiner>
       <SiderBar items={array} home />
-      <main>
-        <Text text="Home" color="black" type="h3" styled="normal" />
-      </main>
+      <div className="main">
+        <RequestsRecent class_name="requestsRecent" />
+        <Graph class_name="graph" />
+        <ProgressBar class_name="progressbar" />
+        <ExpiresSoon class_name="expiresSoon"  />
+      </div>
     </Conteiner>
   );
 }

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-redeclare */
-import React, { useEffect } from "react";
+import React from "react";
 import { createContext, ReactNode, useState } from "react";
 import { api } from "../api";
 type Products = {
@@ -22,6 +22,7 @@ type ProductContextData = {
   setProduct: React.Dispatch<React.SetStateAction<Products | null>>;
   searchProducts: (_search: string) => void;
   getProducts: () => void;
+  getProductById: (id: string) => void;
 };
 
 export const ProductsContext = createContext({} as ProductContextData);
@@ -43,13 +44,27 @@ export function ProductProvider(props: ProductProvider) {
       setProduct(response.data);
     });
   }
-  useEffect(() => {
-    getProducts();
-  }, []);
+  function getProductById(id: string) {
+    api.get<Product>("products/" + id).then((response) => {
+      const productById: Products = {
+        limit: 0,
+        products: [response.data],
+        skip: 0,
+        total: 0,
+      };
+      setProduct(productById);
+    });
+  }
 
   return (
     <ProductsContext.Provider
-      value={{ product, setProduct, searchProducts, getProducts }}
+      value={{
+        product,
+        setProduct,
+        searchProducts,
+        getProducts,
+        getProductById,
+      }}
     >
       {props.children}
     </ProductsContext.Provider>

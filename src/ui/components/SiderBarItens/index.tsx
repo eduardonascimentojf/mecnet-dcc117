@@ -5,12 +5,15 @@ type Props = {
   name: string;
   isSelected: boolean;
   icon: React.ReactNode;
+  id?: number;
 };
-export function SiderBarItens({ name, isSelected, icon }: Props) {
+export function SiderBarItens({ name, isSelected, icon, id }: Props) {
   return (
-    <Conteiner className={isSelected ? "isSelected" : ""}>
-      {icon}
-      <p>{name}</p>
-    </Conteiner>
+    <div>
+      <Conteiner className={isSelected ? "isSelected" : ""} key={id}>
+        {icon}
+        <p>{name}</p>
+      </Conteiner>
+    </div>
   );
 }

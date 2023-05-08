@@ -39,7 +39,7 @@ O objetivo inicial é desenvolver um controle de estoque, com os requisitos prev
 git clone https://github.com/eduardonascimentojf/mecnet-dcc117
 ```
 
-2.Acesse a pasta recém clonada e execute o comando para baixar as dependências do projeto:
+2. Acesse a pasta recém clonada e execute o comando para baixar as dependências do projeto:
 
 ```bash
   yarn install
@@ -51,7 +51,7 @@ ou
   npm install
 ```
 
-3.Inicialize o programa:
+3. Inicialize o programa:
 
 ```bash
   yarn dev
@@ -63,7 +63,7 @@ ou
   npm dev
 ```
 
-4.Abra o navegador:
+4. Abra o navegador:
 
 ```bash
   http://localhost:3002/

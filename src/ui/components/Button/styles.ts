@@ -10,12 +10,12 @@ export const Conteiner = styled.button`
   justify-content: space-between;
   p {
     color: var(--color-white);
-    margin-left: 15px;
   }
   svg {
     fill: var(--color-white);
     height: 16px;
     width: 16px;
+    margin-right: 15px;
   }
   border-radius: 1em;
   border-color: var(--color-light-blue);

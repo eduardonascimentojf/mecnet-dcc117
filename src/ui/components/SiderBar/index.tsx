@@ -22,20 +22,24 @@ export function SiderBar(props: Props) {
   return (
     <S.Conteiner>
       <ul>
-        <img src={Logo} alt="Logo da mecnet" />
-        <Link to="/">
-          <SiderBarItens
-            name="Home"
-            isSelected={splitLocation[1] === ""}
-            icon={<BsHouseDoor />}
-          />
-        </Link>
+        <li>
+          <img src={Logo} alt="Logo da mecnet" />
+        </li>
+        <li>
+          <Link to="/">
+            <SiderBarItens
+              name="Home"
+              isSelected={splitLocation[1] === ""}
+              icon={<BsHouseDoor />}
+            />
+          </Link>
+        </li>
         {props.items?.map((component, i) => (
           <div key={i}>{component}</div>
         ))}
       </ul>
       {props.home == true ? (
-        <p
+        <div
           className="lastItem"
           onClick={() => {
             signOut();
@@ -46,15 +50,15 @@ export function SiderBar(props: Props) {
             isSelected={splitLocation[1] === "sair"}
             icon={<BsBoxArrowInLeft />}
           />
-        </p>
+        </div>
       ) : (
-        <p className="lastItem" onClick={() => navigate(-1)}>
+        <div className="lastItem" onClick={() => navigate(-1)}>
           <SiderBarItens
             name="Voltar"
             isSelected={splitLocation[1] === "sair"}
             icon={<BsArrowLeft />}
           />
-        </p>
+        </div>
       )}
     </S.Conteiner>
   );
