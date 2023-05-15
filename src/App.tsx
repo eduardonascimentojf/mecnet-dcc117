@@ -20,6 +20,14 @@ function App() {
             <Route path="/estoque/:produtoID" element={<P.ProdutoEstoque />} />
             <Route path="/vendas" element={<P.Vendas />} />
             <Route
+              path="estoque/historico-pedidos"
+              element={<P.HistoricoPedidos />}
+            />
+            <Route
+              path="vendas/historico-vendas"
+              element={<P.HistoricoVendas />}
+            />
+            <Route
               path="/funcionarios"
               element={<P.Funcionarios />}
               id="route"

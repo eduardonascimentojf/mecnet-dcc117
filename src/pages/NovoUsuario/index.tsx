@@ -29,8 +29,9 @@ export function NovoUsuario(props: Props) {
 
   const onSubmit: SubmitHandler<IFormLogin> = (data) => creatEmployee(data);
   function creatEmployee(propsCreate: IFormLogin) {
+    const newid = employees[employees.length - 1].id + 1;
     employees.push({
-      id: employees.length,
+      id: newid,
       name: propsCreate.name,
       email: propsCreate.email,
       password: propsCreate.password,

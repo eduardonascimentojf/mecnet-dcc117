@@ -7,4 +7,9 @@ export const Conteiner = styled.div`
     font-size: large;
     text-align: center;
   }
+  main {
+    button {
+      align-self: flex-end;
+    }
+  }
 `;

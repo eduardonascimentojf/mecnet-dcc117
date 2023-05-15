@@ -79,8 +79,10 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  margin-top: 15px;
+font-weight: bold;
+font-size: large;
+text-align: center;
 }
 
 button:focus,
@@ -111,8 +113,6 @@ ul, li{
 #root >div:not(.login) 
 {
 &:not(.notification){
-
-
   display: grid;
   grid-template-columns: 200px 1100px;
   background: var(--color-white);

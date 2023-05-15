@@ -9,11 +9,9 @@ type Props = {
 };
 export function SiderBarItens({ name, isSelected, icon, id }: Props) {
   return (
-    <div>
-      <Conteiner className={isSelected ? "isSelected" : ""} key={id}>
-        {icon}
-        <p>{name}</p>
-      </Conteiner>
-    </div>
+    <Conteiner className={isSelected ? "isSelected" : ""} key={id}>
+      {icon}
+      <p>{name}</p>
+    </Conteiner>
   );
 }

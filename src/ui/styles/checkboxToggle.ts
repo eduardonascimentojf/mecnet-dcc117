@@ -66,19 +66,35 @@ export const CheckboxToggle = styled.input`
   &[type="checkbox"]:checked::after {
     left: 24px;
   }
+  &[type="checkbox"].checked_true::before {
+    background-color: var(--color-light-blue);
+  }
 
+  /*muda a posição do botão toggle se estiver checado*/
+  &[type="checkbox"].checked_true::after {
+    left: 24px;
+  }
   /*Efeito opcional de quando pressiona o botão*/
   &[type="checkbox"]:not([disabled]):active::after {
     transform: scale(1.15, 0.85);
   }
-
+  &[type="checkbox"]:not([checked_false]):active::after {
+    transform: scale(1.15, 0.85);
+  }
   /*Se o input tiver com o atributo disabled a cor é alterada*/
   &[type="checkbox"]:disabled::before {
     background-color: #b1b4b7 !important;
   }
-
   /*Se o input tiver com o atributo disabled a cor é alterada*/
   &[type="checkbox"]:disabled::after {
     background-color: #dcd8d8 !important;
+  }
+  &[type="checkbox"].checked_false::before {
+    background-color: #b1b4b7 !important;
+  }
+  /*Se o input tiver com o atributo disabled a cor é alterada*/
+  &[type="checkbox"].checked_false::after {
+    background-color: #dcd8d8 !important;
+    left: 0;
   }
 `;

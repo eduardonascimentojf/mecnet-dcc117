@@ -22,10 +22,10 @@ export function Vendas() {
       />
     </Link>,
 
-    <Link to="/consulta-individual">
+    <Link to="/vendas/historico-vendas">
       <SiderBarItens
-        name="Consulta individual"
-        isSelected={splitLocation[1] === "consulta-individual"}
+        name="Histórico de Vendas"
+        isSelected={splitLocation[1] === "vendas/historico-vendas"}
         icon={<BsJournalText />}
       />
     </Link>,

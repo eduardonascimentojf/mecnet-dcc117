@@ -12,6 +12,7 @@ import { CheckboxToggle } from "../../ui/styles/checkboxToggle";
 import { Button } from "../../ui/components/Button";
 import { ModalAutomatic, propsSettingsAuto } from "./ModalAutomatic";
 import { useAuth } from "../../data/contexts/auth";
+import { toast } from "react-toastify";
 
 export function ProdutoEstoque() {
   const params = useParams();
@@ -58,6 +59,21 @@ export function ProdutoEstoque() {
   function closeModal() {
     setIsOpen(false);
   }
+  function teste() {
+    if (editAuto)
+      toast.success("Desativado com sucesso!", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    seteditAuto(!editAuto);
+  }
+
   return (
     <Conteiner>
       <SiderBar items={array} />
@@ -95,8 +111,8 @@ export function ProdutoEstoque() {
                 ) : (
                   <CheckboxToggle
                     type="checkbox"
-                    defaultChecked={editAuto}
-                    onChange={() => seteditAuto(!editAuto)}
+                    className={"checked_" + editAuto}
+                    onChange={() => teste()}
                   />
                 )}
               </div>

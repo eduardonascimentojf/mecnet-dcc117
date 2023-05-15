@@ -18,7 +18,6 @@ export const Conteiner = styled.div`
     position: fixed;
     bottom: 0;
     width: 200px;
-
     > div {
       justify-content: end;
       flex-direction: row-reverse;

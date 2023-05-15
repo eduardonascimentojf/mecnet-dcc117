@@ -52,8 +52,10 @@ export function Table() {
             <td>{iten.name}</td>
             <td>{iten.email}</td>
             <td>
+              
               <CheckboxToggle
                 type="checkbox"
+                className={"checked_" + iten.isAdm}
                 name=""
                 id=""
                 defaultChecked={iten.isAdm}

@@ -32,7 +32,7 @@ export function Produtos() {
         icon={<BsCart2 />}
       />
     </Link>,
-    <Link to="/">
+    <Link to="/estoque/historico-pedidos">
       <SiderBarItens
         name="Histórico de Pedidos"
         isSelected={splitLocation[1] === "historico-pedidos"}
