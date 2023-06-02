@@ -31,7 +31,8 @@ export function Vendas() {
     </Link>,
   ];
   const { user } = useAuth();
-  if (user?.isAdm) {
+  console.log(user);
+  if (user?.isAdmin) {
     array.push(
       <Link to="/consulta-total">
         <SiderBarItens

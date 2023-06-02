@@ -1,7 +1,7 @@
 import { BsSearch } from "react-icons/bs";
 import { Conteiner, TableList } from "./styles";
 import { useMemo, useState } from "react";
-import { PedidoType } from "../../../@types";
+import { VendasType } from "../../../@types";
 import { CheckboxToggle } from "../../styles/checkboxToggle";
 import { useAuth } from "../../../data/contexts/auth";
 import { apiJava } from "../../../data/api";
@@ -9,10 +9,10 @@ import { toast } from "react-toastify";
 
 type ListProps = {
   type: "vendas" | "pedidos";
-  list: /*VendasType[]*/ PedidoType[];
+  list: VendasType[];
   arg: string[];
 };
-export function ListSearch(props: ListProps) {
+export function ListVendaSearch(props: ListProps) {
   const [search, setSearch] = useState("");
 
   const filteredList = useMemo(() => {
@@ -21,10 +21,8 @@ export function ListSearch(props: ListProps) {
 
     for (let i = 0; i < props.list.length; i++) {
       if (
-        props.list[i].listOrderItems[0].description
-          .toLowerCase()
-          .includes(searchLower)
-        // props.list[i].marca.toLowerCase().includes(searchLower) ||
+        props.list[i].client.toLowerCase().includes(searchLower) ||
+        props.list[i].seller.toLowerCase().includes(searchLower)
         // props.list[i].cliente?.toLowerCase().includes(searchLower) ||
         // props.list[i].fornecedor?.toLowerCase().includes(searchLower)
       ) {
@@ -90,28 +88,23 @@ export function ListSearch(props: ListProps) {
             {props.arg.map((arg, i) => (
               <th key={i}>{arg}</th>
             ))}
+            {user?.isAdmin && <th>Cancelar</th>}
           </tr>
         </thead>
         <tbody>
           {filteredList.map((iten, i) => (
             <tr key={i}>
               <td>{iten.id.split("-")[0]}</td>
-              <td>{iten.listOrderItems[0].description}</td>
-              <td>{iten.fullValue.toFixed(2)}</td>
+              <td>{iten.client}</td>
+              <td>{iten.cpfClient}</td>
+              <td>{iten.seller}</td>
+              <td>{iten.price.toFixed(2)}</td>
               <td>{auxDate(iten.createdAt)}</td>
-              {user?.isAdmin == false || iten.received == true ? (
+              {user?.isAdmin && (
                 <td>
                   <CheckboxToggle
                     type="checkbox"
-                    defaultChecked={iten.received}
-                    disabled={true}
-                  />
-                </td>
-              ) : (
-                <td>
-                  <CheckboxToggle
-                    type="checkbox"
-                    defaultChecked={iten.received}
+                    defaultChecked={false}
                     onClick={() => teste(iten.id)}
                   />
                 </td>

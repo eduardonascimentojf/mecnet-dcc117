@@ -1,4 +1,5 @@
-import { ReactNode, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ReactNode, useEffect, useState } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
 import { Conteiner } from "./styles";
@@ -9,10 +10,11 @@ import { Button } from "../../ui/components/Button";
 import Modal from "react-modal";
 import { Table } from "../../ui/components/Table";
 import { NovoUsuario } from "../NovoUsuario";
-import { useAuth } from "../../data/contexts/auth";
+import { User, useAuth } from "../../data/contexts/auth";
+import { apiJava } from "../../data/api";
 
 export function Funcionarios() {
-  const { user } = useAuth();
+  const { setEmployees, user, employees } = useAuth();
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -36,10 +38,23 @@ export function Funcionarios() {
       />
     </Link>,
   ];
+  useEffect(() => {
+    const fetchData = async () => {
+      apiJava
+        .get<User[]>("/employee")
+        .then((response) => {
+          setEmployees(response.data);
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+        });
+    };
+    fetchData();
+  }, [employees]);
 
   return (
     <>
-      {user?.isAdm === false ? (
+      {user?.isAdmin === false ? (
         <Navigate to="/" replace={true} />
       ) : (
         <Conteiner>
@@ -74,8 +89,7 @@ export function Funcionarios() {
             >
               <NovoUsuario closeModal={closeModal} />
             </Modal>
-
-            <Table />
+            {employees && <Table />}
           </main>
         </Conteiner>
       )}

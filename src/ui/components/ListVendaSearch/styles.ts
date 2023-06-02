@@ -11,6 +11,7 @@ export const Conteiner = styled.div`
   align-items: center;
   border-radius: 20px;
   width: 100%;
+
   .SearchButton {
     margin-top: 15px;
     margin-right: 5%;
@@ -47,13 +48,7 @@ export const Conteiner = styled.div`
       }
     }
   }
-  .notFound {
-    word-break: break-word;
-    width: 500px;
-    text-align: center;
-    margin: 30px;
-    font-size: 40px;
-  }
+
   .button {
     display: flex;
     align-items: center;
@@ -63,6 +58,13 @@ export const Conteiner = styled.div`
     & button {
       margin: 0px 0px 0px 25px;
     }
+  }
+  .notFound {
+    word-break: break-word;
+    width: 500px;
+    text-align: center;
+    margin: 30px;
+    font-size: 40px;
   }
 `;
 
@@ -86,27 +88,7 @@ export const TableList = styled.table`
   td {
     padding: 12px 15px;
   }
-  td:nth-child(5) {
-    cursor: pointer;
-    :hover {
-      background-color: green;
-      svg {
-        fill: var(--color-white);
-      }
-    }
-  }
-  td:nth-child(6) {
-    cursor: pointer;
-    svg {
-      fill: var(--color-red);
-    }
-    :hover {
-      background-color: red;
-      svg {
-        fill: var(--color-white);
-      }
-    }
-  }
+
   tbody tr {
     border-bottom: 2px solid var(--color-gray-secondary);
   }
@@ -114,33 +96,5 @@ export const TableList = styled.table`
   tbody tr:nth-of-type(even) {
     background-color: var(--color-light-blue);
     color: var(--color-white);
-  }
-`;
-
-export const Edit = styled.div`
-  width: 250px;
-  margin: 10px 0px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--color-white);
-  text-align: center;
-
-  > p {
-    margin-bottom: 15px;
-  }
-
-  input {
-    width: 150px;
-    margin: 5px 0;
-    display: grid;
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(25, 47, 79);
-    outline: none;
-    box-sizing: border-box;
-    padding: 1em 2em;
-    color: black;
-    border-radius: 1em;
   }
 `;

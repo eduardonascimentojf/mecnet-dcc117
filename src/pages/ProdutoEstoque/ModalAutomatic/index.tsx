@@ -6,19 +6,24 @@ import { BsXCircle } from "react-icons/bs";
 
 import { toast } from "react-toastify";
 import { Text } from "../../../ui/components/Text";
+import { apiJava } from "../../../data/api";
+import { AutoStock } from "../../../data/contexts/product";
 
 export interface propsSettingsAuto {
-  PMin: number;
-  PMax: number;
-  QMin: number;
-  QMax: number;
+  PMin: number | undefined;
+  PMax: number | undefined;
+  QMax: number | undefined;
+  QMin: number | undefined;
 }
 
 interface Props {
   closeModal: () => void;
   set_editAuto: React.Dispatch<React.SetStateAction<boolean>>;
-  set_settingsAuto: React.Dispatch<React.SetStateAction<propsSettingsAuto>>;
-  settingsAuto: propsSettingsAuto;
+  set_settingsAuto: React.Dispatch<
+    React.SetStateAction<propsSettingsAuto | undefined>
+  >;
+  settingsAuto: propsSettingsAuto | undefined;
+  id: string;
 }
 
 export function ModalAutomatic(props: Props) {
@@ -30,35 +35,76 @@ export function ModalAutomatic(props: Props) {
 
   const onSubmit: SubmitHandler<propsSettingsAuto> = (data) =>
     updateSetting(data);
-  function updateSetting(propsCreate: propsSettingsAuto) {
-    props.set_settingsAuto(propsCreate);
-    props.closeModal();
-    toast.success("Configurações salvas com sucesso!", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  async function updateSetting(propsCreate: propsSettingsAuto) {
+    await apiJava
+      .put<AutoStock>("/stock/products/autoStock/" + props.id, {
+        automates: true,
+        maxPrice: propsCreate.PMax,
+        minPrice: propsCreate.PMin,
+        maxQuantity: propsCreate.QMax,
+        minQuantity: propsCreate.QMin,
+      })
+      .then((response) => {
+        console.log(response);
+        props.set_settingsAuto({
+          PMin: response.data.minPrice,
+          PMax: response.data.maxPrice,
+          QMin: response.data.minQuantity,
+          QMax: response.data.maxQuantity,
+        });
+        toast.success("Configurações salvas com sucesso!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        props.closeModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  function disableAuto() {
-    props.closeModal();
-    props.set_editAuto(false);
-    toast.success("Desativado com sucesso!", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  async function disableAutoAux() {
+    console.log(props.id);
+    await apiJava
+      .put<AutoStock>("/stock/products/autoStock/" + props.id, {
+        automates: false,
+        maxPrice: props.settingsAuto?.PMax,
+        minPrice: props.settingsAuto?.PMin,
+        maxQuantity: props.settingsAuto?.QMax,
+        minQuantity: props.settingsAuto?.QMin,
+      })
+      .then((response) => {
+        props.set_settingsAuto({
+          PMin: response.data.minPrice,
+          PMax: response.data.maxPrice,
+          QMin: response.data.minQuantity,
+          QMax: response.data.maxQuantity,
+        });
+        toast.success("Desativado com sucesso!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        console.log(response);
+        props.set_editAuto(false);
+        props.closeModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
   return (
     <Conteiner>
       <BsXCircle onClick={props.closeModal} />
@@ -82,10 +128,11 @@ export function ModalAutomatic(props: Props) {
               required={true}
             />
             <input
+              step="0.01"
               type="number"
-              min="0"
+              min="1"
               placeholder="Preço Mínimo"
-              defaultValue={props.settingsAuto.PMin}
+              defaultValue={props.settingsAuto?.PMin}
               {...register("PMin", {
                 required: true,
                 min: 1,
@@ -111,9 +158,10 @@ export function ModalAutomatic(props: Props) {
             />
             <input
               type="number"
-              min="0"
+              min="1"
+              step="0.01"
               placeholder="Preço Máximo"
-              defaultValue={props.settingsAuto.PMax}
+              defaultValue={props.settingsAuto?.PMax}
               {...register("PMax", {
                 required: true,
                 min: 1,
@@ -140,7 +188,7 @@ export function ModalAutomatic(props: Props) {
               type="number"
               min="0"
               placeholder="Quantidade Miníma"
-              defaultValue={props.settingsAuto.QMin}
+              defaultValue={props.settingsAuto?.QMin}
               {...register("QMin", {
                 required: true,
                 min: 1,
@@ -169,7 +217,7 @@ export function ModalAutomatic(props: Props) {
               type="number"
               min="0"
               placeholder="Quantidade Máxima"
-              defaultValue={props.settingsAuto.QMax}
+              defaultValue={props.settingsAuto?.QMax}
               {...register("QMax", {
                 required: true,
                 min: 1,
@@ -191,7 +239,7 @@ export function ModalAutomatic(props: Props) {
           <button className="confirm" type="submit">
             Automatizar
           </button>
-          <button onClick={disableAuto} className="cancel">
+          <button onClick={() => disableAutoAux()} className="cancel">
             Desativar
           </button>
         </div>

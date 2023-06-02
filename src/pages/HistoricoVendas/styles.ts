@@ -7,6 +7,14 @@ export const Conteiner = styled.div`
     font-size: large;
     text-align: center;
   }
+  .notFound {
+    word-break: break-word;
+    width: 500px;
+    text-align: center;
+    position: relative;
+    top: 100px;
+    font-size: 40px;
+  }
   main {
     button {
       align-self: flex-end;

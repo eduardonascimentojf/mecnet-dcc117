@@ -3,23 +3,23 @@
 import React, { useEffect } from "react";
 import { createContext, ReactNode, useState } from "react";
 import { toast } from "react-toastify";
+import { apiJava } from "../api";
 
 export type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  user: string;
-  password: string;
-  isAdm: boolean;
+  userName: string;
+  isAdmin: boolean;
 };
 
 type AuthContextData = {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  employees: User[];
   signOut: () => void;
-  removeEmployee: (_employeeId: number) => void;
-  addEmployee: (_employee: User) => void;
+  employees: User[];
+  setEmployees: React.Dispatch<React.SetStateAction<User[]>>;
+  setControllerLogin: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -29,60 +29,30 @@ type AuthProvider = {
 };
 
 export function AuthProvider(props: AuthProvider) {
+  const [controllerLogin, setControllerLogin] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [employees] = useState<User[]>([
-    {
-      id: 0,
-      name: "1",
-      email: "1@mecnet.com",
-      user: "1",
-      password: "1",
-      isAdm: false,
-    },
-    {
-      id: 1,
-      name: "2",
-      email: "2@mecnet.com",
-      user: "2",
-      password: "2",
-      isAdm: false,
-    },
-    {
-      id: 2,
-      name: "admin",
-      email: "admin@mecnet.com",
-      user: "admin",
-      password: "admin",
-      isAdm: true,
-    },
-  ]);
+  const [employees, setEmployees] = useState<User[]>([]);
 
   function signOut() {
     setUser(null);
+    localStorage.removeItem("@User:token");
   }
-  function addEmployee(_employee: User) {
-    employees.push(_employee);
-  }
-  function removeEmployee(_employeeId: number) {
-    employees.map((employee: User, i: number) => {
-      if (employee.id == _employeeId) {
-        employees.splice(i, 1);
-        toast.success("Funcionário removido com sucesso!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        return;
-      }
-    });
-  }
+
   useEffect(() => {
-    if (user !== null) {
+    const fetchData = async () => {
+      const token = localStorage.getItem("@User:token");
+      if (token) {
+        apiJava.defaults.headers.common.authorization = `Bearer ${token}`;
+        await apiJava.get<User>("/authenticate").then((response) => {
+          setUser(response.data);
+        });
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (user !== null && controllerLogin) {
       toast.success("Login efetuado com sucesso!", {
         position: "top-right",
         autoClose: 1500,
@@ -98,7 +68,14 @@ export function AuthProvider(props: AuthProvider) {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, employees, signOut, addEmployee, removeEmployee }}
+      value={{
+        user,
+        setUser,
+        employees,
+        setEmployees,
+        signOut,
+        setControllerLogin,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

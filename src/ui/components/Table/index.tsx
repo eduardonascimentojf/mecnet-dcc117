@@ -3,16 +3,18 @@ import { BsPen, BsTrash3 } from "react-icons/bs";
 import { useAuth } from "../../../data/contexts/auth";
 import { Conteiner } from "./styles";
 import { CheckboxToggle } from "../../styles/checkboxToggle";
-import { useEffect, useState } from "react";
+import { useEffect,  useState } from "react";
 import Modal from "react-modal";
 import { Dialogconfirm } from "../Dialogconfirm";
 
 import { EditarUsuario } from "../../../pages/EditarUsuario";
+import { apiJava } from "../../../data/api";
+import { toast } from "react-toastify";
 export function Table() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("");
 
   function openModal() {
     setIsOpen(true);
@@ -26,12 +28,45 @@ export function Table() {
   function closeModalEdit() {
     setIsOpenEdit(false);
   }
-  const { employees, removeEmployee } = useAuth();
+  const { employees, setEmployees } = useAuth();
 
   useEffect(() => {
     if (isDelete === true) {
       setIsDelete(false);
-      removeEmployee(id);
+      apiJava
+        .delete("/employee", {
+          data: {
+            id: id,
+          },
+        })
+        .then(() => {
+          const index = employees.map((e) => e.id).indexOf(id);
+          employees.splice(index, 1);
+          setEmployees(employees);
+          toast.success("Funcionário removido com sucesso!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        });
     }
   }, [isDelete]);
 
@@ -47,18 +82,17 @@ export function Table() {
         </tr>
       </thead>
       <tbody>
-        {employees.map((iten, i) => (
+        {employees?.map((iten, i) => (
           <tr key={i}>
             <td>{iten.name}</td>
             <td>{iten.email}</td>
             <td>
-              
               <CheckboxToggle
                 type="checkbox"
-                className={"checked_" + iten.isAdm}
+                className={"checked_" + iten.isAdmin}
                 name=""
                 id=""
-                defaultChecked={iten.isAdm}
+                defaultChecked={iten.isAdmin}
               />
             </td>
             <td

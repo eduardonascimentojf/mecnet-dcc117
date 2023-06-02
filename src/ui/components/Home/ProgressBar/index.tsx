@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text } from "../../Text";
 import { Conteiner } from "./styles";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { Link } from "react-router-dom";
+import { apiJava } from "../../../../data/api";
 interface Props {
   class_name: string;
 }
 
 export function ProgressBar({ class_name }: Props) {
-  const [first] = useState(Math.round(Math.random() * 100));
+  const [fullStock, setFullStock] = useState(0);
+  useEffect(() => {
+    apiJava
+      .get("/stock")
+      .then((response) => {
+        setFullStock(
+          (100 * response.data.productsQuantity) / response.data.capacity
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Conteiner className={class_name}>
@@ -22,7 +35,7 @@ export function ProgressBar({ class_name }: Props) {
           />
           <Text
             class_name="subtitle"
-            text={"Capacidade máxima atingida"}
+            text={"% da capacidade máxima"}
             styled={"italic"}
             type={"span"}
             color={"black"}
@@ -41,7 +54,7 @@ export function ProgressBar({ class_name }: Props) {
       </div>
 
       <div className="progress_bar">
-        <CircularProgressbar value={first} text={`${first}%`} />
+        <CircularProgressbar value={fullStock} text={`${fullStock}%`} />
       </div>
     </Conteiner>
   );

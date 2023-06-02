@@ -3,9 +3,33 @@ import styled from "styled-components";
 export const Conteiner = styled.div`
   display: flex;
   width: 100%;
-  align-items: center;
+  flex-direction: column;
+  align-items: end;
   justify-content: end;
   margin: 10px 0px;
+  .test {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: end;
+    margin: 10px 0px;
+  }
+  .sort {
+    cursor: pointer;
+    text-align: center;
+    margin-right: 25px;
+    padding: 8px 15px;
+    background-color: var(--color-white-secondary);
+    border-radius: 25px 25px;
+    .sortModal {
+      position: absolute;
+      right: 36px;
+      margin-top: 30px;
+      &.closeSort {
+        display: none;
+      }
+    }
+  }
 
   .filter {
     min-height: 100vh;

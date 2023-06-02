@@ -14,7 +14,7 @@ import { ProdutosItens } from "../../ui/components/ProdutosItens";
 export function Produtos() {
   const location = useLocation();
   const { pathname } = location;
-  const { product, getProducts } = useProduct();
+  const { productCatalog, getProductsCatalog } = useProduct();
   const splitLocation = pathname.split("/");
 
   const array: ReactNode[] = [
@@ -42,7 +42,7 @@ export function Produtos() {
   ];
 
   useEffect(() => {
-    getProducts();
+    getProductsCatalog();
   }, []);
 
   return (
@@ -50,20 +50,20 @@ export function Produtos() {
       <SiderBar items={array} />
       <main>
         <Text text="Produtos" color="black" type="h1" styled="normal" />
-        <Search />
+        <Search type="catalog" />
+
         <div className="grid">
-          {product?.products.map((iten, i) => (
+          {productCatalog?.map((iten, i) => (
             <ProdutosItens
-              category={iten.category}
               id={iten.id}
-              images={iten.images}
+              name={iten.name}
+              image={iten.image}
               price={iten.price}
-              title={iten.title}
               key={i}
             />
           ))}
         </div>
-        {!product?.products.length && (
+        {!productCatalog?.length && (
           <h3 className="notFound">Nenhum produto foi encontrado!</h3>
         )}
       </main>

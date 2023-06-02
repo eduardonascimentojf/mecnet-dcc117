@@ -1,46 +1,51 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
-import { Button } from "../../ui/components/Button";
-
-import { User, useAuth } from "../../data/contexts/auth";
-import { BsXCircle } from "react-icons/bs";
-import { CheckboxToggle } from "../../ui/styles/checkboxToggle";
+import { useAuth } from "../../../data/contexts/auth";
+import { apiJava } from "../../../data/api";
 import { toast } from "react-toastify";
-import { apiJava } from "../../data/api";
+import { Conteiner } from "./styles";
+import { BsXCircle } from "react-icons/bs";
+import { Text } from "../Text";
+import { CheckboxToggle } from "../../styles/checkboxToggle";
+import { Button } from "../Button";
+
 
 type IFormLogin = {
   name: string;
   email: string;
   userName: string;
-  password: string;
+  passWord: string;
   isAdmin: boolean;
 };
 interface Props {
   closeModal: () => void;
+  id: string;
 }
 
-export function NovoUsuario(props: Props) {
-  const { employees } = useAuth();
+export function EditarUsuario(props: Props) {
+  const { employees, setEmployees } = useAuth();
+  const element = employees?.find((element) => element.id == props.id);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<IFormLogin>();
 
-  const onSubmit: SubmitHandler<IFormLogin> = (data) => creatEmployee(data);
-  async function creatEmployee(propsCreate: IFormLogin) {
+  const onSubmit: SubmitHandler<IFormLogin> = (data) => updateEmployee(data);
+  async function updateEmployee(propsEdit: IFormLogin) {
     await apiJava
-      .post<User>("/employee", {
-        name: propsCreate.name,
-        email: propsCreate.email,
-        userName: propsCreate.userName,
-        passWord: propsCreate.password,
-        isAdmin: propsCreate.isAdmin,
+      .put(`/employee/${props.id}`, {
+        name: propsEdit.name,
+        email: propsEdit.email,
+        userName: propsEdit.userName,
+        passWord: propsEdit.passWord,
+        isAdmin: propsEdit.isAdmin,
       })
-      .then((response) => {
-        employees?.push(response.data);
-        toast.success("Funcionário cadastrado com sucesso!", {
+      .then((res) => {
+        const index = employees.map((e) => e.id).indexOf(props.id);
+        res.data.userName = res.data.username;
+        employees.splice(index, 1, res.data);
+        setEmployees(employees);
+        toast.success("Funcionário atualizado com sucesso!", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: false,
@@ -63,7 +68,6 @@ export function NovoUsuario(props: Props) {
           theme: "dark",
         });
       });
-
     props.closeModal();
   }
 
@@ -72,9 +76,8 @@ export function NovoUsuario(props: Props) {
       <BsXCircle onClick={props.closeModal} />
 
       <Text text="MECNET" type="h2" styled="normal" color="white" />
-
       <Text
-        text="Cadastre um funcionário"
+        text="Atualizar um funcionário"
         type="h4"
         styled="normal"
         color="white"
@@ -92,6 +95,7 @@ export function NovoUsuario(props: Props) {
             <input
               type="text"
               placeholder="Nome"
+              defaultValue={element?.name}
               {...register("name", {
                 required: true,
                 minLength: 5,
@@ -116,6 +120,7 @@ export function NovoUsuario(props: Props) {
             />
             <input
               type="email"
+              defaultValue={element?.email}
               placeholder="E-mail"
               {...register("email", {
                 required: true,
@@ -134,6 +139,7 @@ export function NovoUsuario(props: Props) {
             <Text color="white" styled="italic" text="Usuário" type="span" />
             <input
               type="text"
+              defaultValue={element?.userName}
               placeholder="Usuário"
               {...register("userName", {
                 required: true,
@@ -151,23 +157,17 @@ export function NovoUsuario(props: Props) {
             )}
           </div>
           <div className="inputLabel">
-            <Text
-              color="white"
-              styled="italic"
-              text="Senha"
-              type="span"
-              required={true}
-            />
+            <Text color="white" styled="italic" text="Senha" type="span" />
             <input
               type="password"
               placeholder="Senha"
-              {...register("password", {
-                required: true,
-                minLength: 6,
+              defaultValue="*****"
+              {...register("passWord", {
+                minLength: 5,
                 maxLength: 12,
               })}
             />
-            {errors.password && (
+            {errors.passWord && (
               <Text
                 type="errorRequired"
                 color="white"
@@ -181,12 +181,12 @@ export function NovoUsuario(props: Props) {
             <CheckboxToggle
               type="checkbox"
               placeholder="É gerente"
-              defaultChecked={false}
+              defaultChecked={element?.isAdmin}
               {...register("isAdmin")}
             />
           </div>
         </div>
-        <Button text="Cadastrar" propsButton={{ type: "submit" }} />
+        <Button text="Atualizar" propsButton={{ type: "submit" }} />
       </form>
     </Conteiner>
   );
