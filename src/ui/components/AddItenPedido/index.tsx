@@ -8,6 +8,7 @@ import { Conteiner } from "./styles";
 import { BsXCircle } from "react-icons/bs";
 import { Text } from "../Text";
 import { Button } from "../Button";
+import { auxPrice } from "../../../helpers";
 
 type IFormAdd = {
   productCatalogId: string;
@@ -47,7 +48,7 @@ export function AddItenPedido(props: Props) {
         productCatalogId: props.id,
         description: propsAdd.description,
         amount: propsAdd.amount,
-        fullValue: (propsAdd.amount * productCatalog.price).toFixed(2),
+        fullValue: propsAdd.amount * productCatalog.price,
         price: productCatalog.price,
       })
       .then(() => {
@@ -145,7 +146,7 @@ export function AddItenPedido(props: Props) {
                 step={0.01}
                 placeholder="Preço"
                 disabled
-                defaultValue={productCatalog?.price.toFixed(2)}
+                defaultValue={auxPrice(productCatalog?.price)}
                 {...register("price", {
                   min: 1,
                 })}

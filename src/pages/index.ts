@@ -7,6 +7,7 @@ import { Funcionarios } from "./Funcionarios";
 import { ProdutoEstoque } from "./ProdutoEstoque";
 import { HistoricoPedidos } from "./HistoricoPedidos";
 import { HistoricoVendas } from "./HistoricoVendas";
+import { TodasVendas } from "./TodasVendas";
 export {
   Home,
   Produtos,
@@ -16,5 +17,6 @@ export {
   Funcionarios,
   ProdutoEstoque,
   HistoricoPedidos,
-  HistoricoVendas
+  HistoricoVendas,
+  TodasVendas,
 };

@@ -4,14 +4,9 @@ import React, { useEffect } from "react";
 import { createContext, ReactNode, useState } from "react";
 import { toast } from "react-toastify";
 import { apiJava } from "../api";
+import { User } from "../../@types";
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  userName: string;
-  isAdmin: boolean;
-};
+
 
 type AuthContextData = {
   user: User | null;

@@ -13,6 +13,7 @@ import { ModalAutomatic, propsSettingsAuto } from "./ModalAutomatic";
 import { useAuth } from "../../data/contexts/auth";
 import { apiJava } from "../../data/api";
 import { Stock } from "../../@types";
+import { auxPrice } from "../../helpers";
 
 export function ProdutoEstoque() {
   const params = useParams();
@@ -44,7 +45,7 @@ export function ProdutoEstoque() {
   function closeModal() {
     setIsOpen(false);
   }
-  const [teste, setTest] = useState<Stock>();
+  const [stock, setStock] = useState<Stock>();
   const [editAuto, seteditAuto] = useState(false);
   const [settingsAuto, setSettingsAuto] = useState<propsSettingsAuto>();
   useEffect(() => {
@@ -53,7 +54,7 @@ export function ProdutoEstoque() {
         await apiJava
           .get<Stock>("/stock/products/" + params.produtoID)
           .then((response) => {
-            setTest(response.data);
+            setStock(response.data);
             seteditAuto(response.data.autoStock.automates);
             setSettingsAuto({
               PMin: response.data.autoStock.minPrice,
@@ -70,24 +71,24 @@ export function ProdutoEstoque() {
   return (
     <Conteiner>
       <SiderBar items={array} />
-      {teste ? (
+      {stock ? (
         <main>
-          <Text text={teste.name} color="black" type="h3" styled="normal" />
+          <Text text={stock.name} color="black" type="h3" styled="normal" />
           <div className="gridProduct">
-            <img src={teste.image[0]} alt={teste.name} />
+            <img src={stock.image[0]} alt={stock.name} />
 
             <div className="info">
               <h2>Preço Atual:</h2>
-              <span>{"R$ " + teste.price.toFixed(2)}</span>
-              <p>{teste.description}</p>
-              <p>Lojas: {teste.manufacturer}</p>
+              <span>{"R$ " + auxPrice(stock.price)}</span>
+              <p>{stock.description}</p>
+              <p>Lojas: {stock.manufacturer}</p>
               <a href="https://loja.cofap.com.br/p/1863797/kit-de-suspensao-dianteira-cofap-tkc03117-unitario">
                 https://loja.cofap.com.br/p/1863797/kit-de-suspensao-dianteira-cofap-tkc03117-unitario
               </a>
             </div>
 
             <div className="auto">
-              <p>Quantidade em estoque: {teste.stock}</p>
+              <p>Quantidade em estoque: {stock.stock}</p>
               <div className="checkbox">
                 <p>Estoque automático</p>
                 {user?.isAdmin == false ? (
@@ -113,11 +114,11 @@ export function ProdutoEstoque() {
                 <ul>
                   <li>
                     <p>Preço Mín.:</p>
-                    <p>{"R$ " + settingsAuto?.PMin}</p>
+                    <p>{"R$ " + auxPrice(settingsAuto?.PMin)}</p>
                   </li>
                   <li>
                     <p>Preço Máx.:</p>
-                    <p>{"R$ " + settingsAuto?.PMax}</p>
+                    <p>{"R$ " + auxPrice(settingsAuto?.PMax)}</p>
                   </li>
                   <li>
                     <p>Qtd. Mín.:</p>
@@ -165,7 +166,7 @@ export function ProdutoEstoque() {
               set_settingsAuto={setSettingsAuto}
               set_editAuto={seteditAuto}
               settingsAuto={settingsAuto}
-              id={teste.autoStock.id_AutoStock}
+              id={stock.autoStock.id_AutoStock}
             />
           </Modal>
         </main>

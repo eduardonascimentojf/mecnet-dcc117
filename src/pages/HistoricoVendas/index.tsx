@@ -4,20 +4,20 @@ import { Text } from "../../ui/components/Text";
 import { Conteiner } from "./styles";
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { Link, useLocation } from "react-router-dom";
-import { BsJournalText } from "react-icons/bs";
+import { BsJournalText, BsFiletypePdf } from "react-icons/bs";
 
 import { Button } from "../../ui/components/Button";
 import { apiJava } from "../../data/api";
 import { VendasType } from "../../@types";
 import { ListVendaSearch } from "../../ui/components/ListVendaSearch";
-
-// import { useAuth } from "../../data/contexts/auth";
+import { PDF_Venda } from "../../ui/components/PDF_Venda";
+import { useAuth } from "../../data/contexts/auth";
 
 export function HistoricoVendas() {
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
-
+  const { user } = useAuth();
   const [todasVendas, setTodasVendas] = useState<VendasType[]>();
   useEffect(() => {
     apiJava
@@ -55,10 +55,14 @@ export function HistoricoVendas() {
               list={todasVendas}
               arg={["Codigo", "Cliente", "CPF", "Vendedor", "Peço", "Data"]}
             />
-            <Button text="Gerar relatório" />
+            <Button
+              text="Gerar relatório"
+              icon={<BsFiletypePdf />}
+              propsButton={{ onClick: () => PDF_Venda(todasVendas, user) }}
+            />
           </>
         ) : (
-          <h3 className="notFound">Nenhum produto foi encontrado!</h3>
+          <h3 className="notFound">Nenhuma venda encontrado!</h3>
         )}
       </main>
     </Conteiner>

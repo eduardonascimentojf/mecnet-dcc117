@@ -6,10 +6,11 @@ import { CheckboxToggle } from "../../styles/checkboxToggle";
 import { useAuth } from "../../../data/contexts/auth";
 import { apiJava } from "../../../data/api";
 import { toast } from "react-toastify";
+import { auxPrice } from "../../../helpers";
 
 type ListProps = {
   type: "vendas" | "pedidos";
-  list: /*VendasType[]*/ PedidoType[];
+  list: PedidoType[];
   arg: string[];
 };
 export function ListSearch(props: ListProps) {
@@ -23,10 +24,8 @@ export function ListSearch(props: ListProps) {
       if (
         props.list[i].listOrderItems[0].description
           .toLowerCase()
-          .includes(searchLower)
-        // props.list[i].marca.toLowerCase().includes(searchLower) ||
-        // props.list[i].cliente?.toLowerCase().includes(searchLower) ||
-        // props.list[i].fornecedor?.toLowerCase().includes(searchLower)
+          .includes(searchLower) ||
+        props.list[i].id.split("-")[0].toLowerCase().includes(searchLower)
       ) {
         result.push(props.list[i]);
       }
@@ -41,7 +40,7 @@ export function ListSearch(props: ListProps) {
     const date = data[0].split("-");
     return `${date[2]}/${date[1]}/${date[0]} | ${hour[0]}:${hour[1]}h  `;
   }
-  async function teste(id: string) {
+  async function setReceived(id: string) {
     apiJava
       .get("/order/setReceived/" + id)
       .then((response) => {
@@ -97,7 +96,7 @@ export function ListSearch(props: ListProps) {
             <tr key={i}>
               <td>{iten.id.split("-")[0]}</td>
               <td>{iten.listOrderItems[0].description}</td>
-              <td>{iten.fullValue.toFixed(2)}</td>
+              <td>{auxPrice(iten.fullValue)}</td>
               <td>{auxDate(iten.createdAt)}</td>
               {user?.isAdmin == false || iten.received == true ? (
                 <td>
@@ -112,7 +111,7 @@ export function ListSearch(props: ListProps) {
                   <CheckboxToggle
                     type="checkbox"
                     defaultChecked={iten.received}
-                    onClick={() => teste(iten.id)}
+                    onClick={() => setReceived(iten.id)}
                   />
                 </td>
               )}

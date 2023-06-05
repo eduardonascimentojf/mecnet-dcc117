@@ -23,7 +23,7 @@ export function Estoque() {
         icon={<BsListOl />}
       />
     </Link>,
-    <Link to="/consultar-historico">
+    <Link to="/vendas/historico-vendas">
       <SiderBarItens
         name="Consultar Histórico"
         isSelected={splitLocation[1] === "consultar-historico"}

@@ -8,6 +8,7 @@ import { apiJava } from "../../../data/api";
 import Modal from "react-modal";
 import { Dialogconfirm } from "../Dialogconfirm";
 import { toast } from "react-toastify";
+import { auxPrice } from "../../../helpers";
 type ListOrderItems = {
   id: string;
   isComplete: boolean;
@@ -221,8 +222,8 @@ export function PedidosSearch() {
             <tr key={i}>
               <td>{iten.description}</td>
               <td>{iten.amount}</td>
-              <td>{iten.price.toFixed(2)}</td>
-              <td>{iten.fullValue.toFixed(2)}</td>
+              <td>{auxPrice(iten.price)}</td>
+              <td>{auxPrice(iten.fullValue)}</td>
               {user?.isAdmin && (
                 <td
                   onClick={() => {
@@ -318,7 +319,7 @@ export function PedidosSearch() {
 
       {user?.isAdmin && pedidos && (
         <div className="button">
-          <p>Valor total: R$ {pedidos?.fullValue}</p>
+          <p>Valor total: R$ {auxPrice(pedidos?.fullValue)}</p>
           <Button
             text="Fechar Pedido"
             propsButton={{

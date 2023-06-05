@@ -5,7 +5,6 @@ import { createContext, ReactNode, useState } from "react";
 import { apiJava } from "../api";
 import { Catalog, Stock } from "../../@types";
 
-
 type ProductContextData = {
   product: Stock[] | null;
   setProduct: React.Dispatch<React.SetStateAction<Stock[] | null>>;

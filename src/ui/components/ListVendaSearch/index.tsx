@@ -2,10 +2,7 @@ import { BsSearch } from "react-icons/bs";
 import { Conteiner, TableList } from "./styles";
 import { useMemo, useState } from "react";
 import { VendasType } from "../../../@types";
-import { CheckboxToggle } from "../../styles/checkboxToggle";
-import { useAuth } from "../../../data/contexts/auth";
-import { apiJava } from "../../../data/api";
-import { toast } from "react-toastify";
+import { auxPrice } from "../../../helpers";
 
 type ListProps = {
   type: "vendas" | "pedidos";
@@ -22,16 +19,14 @@ export function ListVendaSearch(props: ListProps) {
     for (let i = 0; i < props.list.length; i++) {
       if (
         props.list[i].client.toLowerCase().includes(searchLower) ||
-        props.list[i].seller.toLowerCase().includes(searchLower)
-        // props.list[i].cliente?.toLowerCase().includes(searchLower) ||
-        // props.list[i].fornecedor?.toLowerCase().includes(searchLower)
+        props.list[i].seller.toLowerCase().includes(searchLower) ||
+        props.list[i].cpfClient.toLowerCase().includes(searchLower)
       ) {
         result.push(props.list[i]);
       }
     }
     return result;
   }, [props.list, search]);
-  const { user } = useAuth();
   function auxDate(dataString: string | undefined) {
     if (dataString === undefined) return;
     const data = dataString.split("T");
@@ -39,36 +34,7 @@ export function ListVendaSearch(props: ListProps) {
     const date = data[0].split("-");
     return `${date[2]}/${date[1]}/${date[0]} | ${hour[0]}:${hour[1]}h  `;
   }
-  async function teste(id: string) {
-    apiJava
-      .get("/order/setReceived/" + id)
-      .then((response) => {
-        toast.success("Pedido recebido com seucesso!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        console.log(response.data);
-      })
-      .catch((error) => {
-        toast.error(error.response.data, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        console.log(error.response.data);
-      });
-  }
+
   return (
     <Conteiner>
       <div className="SearchButton">
@@ -88,7 +54,6 @@ export function ListVendaSearch(props: ListProps) {
             {props.arg.map((arg, i) => (
               <th key={i}>{arg}</th>
             ))}
-            {user?.isAdmin && <th>Cancelar</th>}
           </tr>
         </thead>
         <tbody>
@@ -98,17 +63,8 @@ export function ListVendaSearch(props: ListProps) {
               <td>{iten.client}</td>
               <td>{iten.cpfClient}</td>
               <td>{iten.seller}</td>
-              <td>{iten.price.toFixed(2)}</td>
+              <td>{auxPrice(iten.price)}</td>
               <td>{auxDate(iten.createdAt)}</td>
-              {user?.isAdmin && (
-                <td>
-                  <CheckboxToggle
-                    type="checkbox"
-                    defaultChecked={false}
-                    onClick={() => teste(iten.id)}
-                  />
-                </td>
-              )}
             </tr>
           ))}
         </tbody>

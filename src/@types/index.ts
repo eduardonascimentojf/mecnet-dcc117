@@ -13,6 +13,7 @@ export type PedidoType = {
   fullValue: number;
   listOrderItems: ListOrderItems[];
   createdAt?: string;
+  updatedAt?: string;
 };
 export type productsList = {
   id: string;
@@ -21,6 +22,7 @@ export type productsList = {
   price: number;
   fullValue: number;
   createdAt?: string;
+  updatedAt?: string;
 };
 export type VendasType = {
   id: string;
@@ -30,6 +32,7 @@ export type VendasType = {
   price: number;
   productsList: productsList[];
   createdAt?: string;
+  updatedAt?: string;
 };
 export type Product = {
   id: string;
@@ -66,4 +69,11 @@ export type AutoStock = {
   minPrice: number;
   maxQuantity: number;
   minQuantity: number;
+};
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  userName: string;
+  isAdmin: boolean;
 };

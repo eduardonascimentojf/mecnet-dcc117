@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { Product } from "../../../@types";
 import { AddItenPedido } from "../AddItenPedido";
+import { auxPrice } from "../../../helpers";
 
 export function ProdutosItens(props: Product) {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ export function ProdutosItens(props: Product) {
           <Text type="h4" text={props.name} color="black" styled="normal" />
           <Text
             type="p"
-            text={"R$ " + props.price.toFixed(2)}
+            text={"R$ " + auxPrice(props.price)}
             color="black"
             styled="normal"
           />

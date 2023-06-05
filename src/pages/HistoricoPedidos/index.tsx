@@ -56,7 +56,7 @@ export function HistoricoPedidos() {
             arg={["Codigo", "Produtos", "Valor", "Data", "Recebido"]}
           />
         ) : (
-          <h3 className="notFound">Nenhum produto foi encontrado!</h3>
+          <h3 className="notFound">Nenhum pedido foi encontrado!</h3>
         )}
       </main>
     </Conteiner>

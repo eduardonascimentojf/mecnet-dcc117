@@ -44,17 +44,28 @@ export function Login() {
         setControllerLogin(true);
       })
       .catch((err) => {
-        toast.error("Usuário e/ou senha inválidos", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        }),
-          console.log(err.response.data.message);
+        if (err.message == "Network Error") {
+          toast.error("Serivdor não está respondendo", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else
+          toast.error("Usuário e/ou senha inválidos", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
       });
   }
   return (

@@ -1,6 +1,6 @@
 import * as S from "./styles";
 export interface TextProps {
-  text: string;
+  text: string | undefined;
   styled: "normal" | "italic";
   type: "h1" | "h2" | "h3" | "h4" | "p" | "span" | "errorRequired";
   color: "white" | "black";

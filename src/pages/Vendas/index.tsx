@@ -12,7 +12,6 @@ export function Vendas() {
   const { pathname } = location;
   const splitLocation = pathname.split("/");
 
-  // const { user } = useAuth();
   const array: ReactNode[] = [
     <Link to="/vendas">
       <SiderBarItens
@@ -31,10 +30,9 @@ export function Vendas() {
     </Link>,
   ];
   const { user } = useAuth();
-  console.log(user);
   if (user?.isAdmin) {
     array.push(
-      <Link to="/consulta-total">
+      <Link to="consulta-total">
         <SiderBarItens
           name="Consulta total"
           isSelected={splitLocation[1] === "consulta-total"}
@@ -43,7 +41,7 @@ export function Vendas() {
       </Link>
     );
     array.push(
-      <Link to="/cancelar-venda">
+      <Link to="cancelar-venda">
         <SiderBarItens
           name="Cancelar Venda"
           isSelected={splitLocation[1] === "cancelar-venda"}
