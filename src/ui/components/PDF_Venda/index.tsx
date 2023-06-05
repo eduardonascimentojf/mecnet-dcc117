@@ -1,10 +1,9 @@
 import { User, VendasType } from "../../../@types";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+
 import { auxDate, auxPrice } from "../../../helpers";
 
 export function PDF_Venda(vendas: VendasType[], user: User | null) {
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   function date() {
     const data = new Date();
     data.setHours(data.getHours() - 3);

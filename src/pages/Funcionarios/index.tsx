@@ -10,8 +10,9 @@ import { Button } from "../../ui/components/Button";
 import Modal from "react-modal";
 import { Table } from "../../ui/components/Table";
 import { NovoUsuario } from "../NovoUsuario";
-import { User, useAuth } from "../../data/contexts/auth";
+import { useAuth } from "../../data/contexts/auth";
 import { apiJava } from "../../data/api";
+import { User } from "../../@types";
 
 export function Funcionarios() {
   const { setEmployees, user, employees } = useAuth();

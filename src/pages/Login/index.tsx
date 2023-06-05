@@ -3,12 +3,13 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { Text } from "../../ui/components/Text";
 import { Button } from "../../ui/components/Button";
-import { User, useAuth } from "../../data/contexts/auth";
+import { useAuth } from "../../data/contexts/auth";
 
 import { Conteiner } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 import mecnet from "../../assets/mecnet.png";
 import { apiJava } from "../../data/api";
+import { User } from "../../@types";
 
 type IFormLogin = {
   login: string;
@@ -65,7 +66,7 @@ export function Login() {
             draggable: true,
             progress: undefined,
             theme: "dark",
-          })
+          });
       });
   }
   return (

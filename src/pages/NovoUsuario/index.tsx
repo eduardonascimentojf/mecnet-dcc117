@@ -3,11 +3,12 @@ import { Text } from "../../ui/components/Text";
 import { Conteiner } from "./styles";
 import { Button } from "../../ui/components/Button";
 
-import { User, useAuth } from "../../data/contexts/auth";
+import { useAuth } from "../../data/contexts/auth";
 import { BsXCircle } from "react-icons/bs";
 import { CheckboxToggle } from "../../ui/styles/checkboxToggle";
 import { toast } from "react-toastify";
 import { apiJava } from "../../data/api";
+import { User } from "../../@types";
 
 type IFormLogin = {
   name: string;

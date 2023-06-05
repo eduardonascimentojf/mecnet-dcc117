@@ -7,7 +7,8 @@ import { BsXCircle } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { Text } from "../../../ui/components/Text";
 import { apiJava } from "../../../data/api";
-import { AutoStock } from "../../../data/contexts/product";
+import { AutoStock } from "../../../@types";
+
 
 export interface propsSettingsAuto {
   PMin: number | undefined;
