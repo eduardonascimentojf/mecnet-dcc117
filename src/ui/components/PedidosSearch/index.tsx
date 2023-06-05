@@ -1,96 +1,195 @@
-import { BsSearch, BsXLg } from "react-icons/bs";
-import { Conteiner, TableList } from "./styles";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { BsPen, BsSearch, BsXLg } from "react-icons/bs";
+import { Conteiner, Edit, TableList } from "./styles";
 import { useAuth } from "../../../data/contexts/auth";
 import { Button } from "../Button";
-import { useMemo, useState } from "react";
-
-const pedidos = {
-  itens: [
-    {
-      id: 1,
-      cod: "345149",
-      desc: "Compressor de Ar",
-      qtde: 2,
-      Vunid: "2.589,00",
-      VTotal: "5.178,00",
-    },
-    {
-      id: 2,
-      cod: "765788",
-      desc: "Cabeçote para Caminhões Volvo",
-      qtde: 1,
-      Vunid: "32.139,96",
-      VTotal: "32.139,96",
-    },
-    {
-      id: 3,
-      cod: "4009",
-      desc: "PINO FEMEA 3P - 10A",
-      qtde: 15,
-      Vunid: "2,00",
-      VTotal: "30,00",
-    },
-    {
-      id: 4,
-      cod: "75321788",
-      desc: "Cabeçote para Caminhões Mercedes Actros 2651 2022",
-      qtde: 1,
-      Vunid: "39.139,96",
-      VTotal: "39.139,96",
-    },
-    {
-      id: 5,
-      cod: "3452359",
-      desc: "Alternador ACTROS 2651 LS - Delco Remy",
-      qtde: 2,
-      Vunid: "2.589,00",
-      VTotal: "5.178,00",
-    },
-    {
-      id: 6,
-      cod: "705788",
-      desc: "Kit de Filtros ACTROS 2651 LS - Parker - REK-40045",
-      qtde: 1,
-      Vunid: "1.139,96",
-      VTotal: "1.139,96",
-    },
-    {
-      id: 7,
-      cod: "14009",
-      desc: "Barra Lateral - Attow - ATW248 - Unitário ",
-      qtde: 2,
-      Vunid: "590,90",
-      VTotal: "1.181,80",
-    },
-    {
-      id: 8,
-      cod: "320788",
-      desc: "Terminal de Direção - Attow - ATW5174 - Unitário ",
-      qtde: 10,
-      Vunid: "234,07",
-      VTotal: "2.340,70",
-    },
-  ],
-  total: "14.846,90",
+import { useEffect, useMemo, useState } from "react";
+import { apiJava } from "../../../data/api";
+import Modal from "react-modal";
+import { Dialogconfirm } from "../Dialogconfirm";
+import { toast } from "react-toastify";
+import { auxPrice } from "../../../helpers";
+type ListOrderItems = {
+  id: string;
+  isComplete: boolean;
+  description: string;
+  amount: number;
+  price: number;
+  fullValue: number;
 };
+type PedidoType = {
+  id: string;
+  isComplete: boolean;
+  received: boolean;
+  fullValue: number;
+  listOrderItems: ListOrderItems[];
+};
+
 export function PedidosSearch() {
+  const [pedidos, setPedidos] = useState<PedidoType>();
   const { user } = useAuth();
   const [search, setSearch] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+  const [markOrdered, setMarkOrdered] = useState(false);
+  const [id_, setId_] = useState("");
+  const [amount, setAmount] = useState(1);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await apiJava
+        .get<PedidoType>("/order")
+        .then((response) => {
+          setPedidos(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchData();
+  }, [pedidos]);
+
+  useEffect(() => {
+    if (isDelete === true) {
+      setIsDelete(false);
+      apiJava
+        .delete("/order/orderItems", {
+          data: {
+            id: id_,
+          },
+        })
+        .then(() => {
+          if (pedidos != undefined) {
+            const index = pedidos.listOrderItems.map((e) => e.id).indexOf(id_);
+            pedidos.listOrderItems.splice(index, 1);
+            setPedidos(pedidos);
+            toast.success("Item removido com sucesso!", {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        });
+    }
+  }, [isDelete]);
+
+  useEffect(() => {
+    if (markOrdered === true) {
+      setMarkOrdered(false);
+      apiJava
+        .get("/order/setBuy/" + pedidos?.id)
+        .then(() => {
+          setPedidos(undefined);
+          toast.success("Pedido encomendado com seucesso!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        });
+    }
+  }, [markOrdered]);
 
   const filteredRequests = useMemo(() => {
     const lowerSearch = search.toLowerCase();
     const result = [];
-    for (let i = 0; i < pedidos.itens.length; i++) {
-      if (
-        pedidos.itens[i].desc.toLowerCase().includes(lowerSearch) ||
-        pedidos.itens[i].cod.toLowerCase().includes(lowerSearch)
-      ) {
-        result.push(pedidos.itens[i]);
+    if (pedidos?.listOrderItems != undefined)
+      for (let i = 0; i < pedidos?.listOrderItems.length; i++) {
+        if (
+          pedidos?.listOrderItems[i].description
+            .toLowerCase()
+            .includes(lowerSearch)
+        ) {
+          result.push(pedidos?.listOrderItems[i]);
+        }
       }
-    }
     return result;
-  }, [search]);
+  }, [search, pedidos]);
 
+  function update() {
+    apiJava
+      .put<ListOrderItems>("/order/orderItems/" + id_, {
+        amount: amount,
+      })
+      .then((response) => {
+        const index = filteredRequests.map((e) => e.id).indexOf(id_);
+        filteredRequests.splice(index, 1, response.data);
+        setPedidos(pedidos);
+        closeModalEdit();
+        toast.success("Item atualizado com sucesso!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      });
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+  function openModalEdit() {
+    setIsOpenEdit(true);
+  }
+  function closeModalEdit() {
+    setIsOpenEdit(false);
+  }
   return (
     <Conteiner>
       <div className="SearchButton">
@@ -110,43 +209,156 @@ export function PedidosSearch() {
       <TableList>
         <thead>
           <tr>
-            <th>Código</th>
             <th>Descrição</th>
             <th>Qtde</th>
             <th>Vlr. Unit</th>
             <th>Vlr. Total</th>
-            {user?.isAdm && <th>Remover</th>}
+            {user?.isAdmin && <th>Editar</th>}
+            {user?.isAdmin && <th>Remover</th>}
           </tr>
         </thead>
         <tbody>
           {filteredRequests.map((iten, i) => (
             <tr key={i}>
-              <td>{iten.cod}</td>
-              <td>{iten.desc}</td>
-              <td>{iten.qtde}</td>
-              <td>{iten.Vunid}</td>
-              <td>{iten.VTotal}</td>
-              {user?.isAdm && (
-                <td>
+              <td>{iten.description}</td>
+              <td>{iten.amount}</td>
+              <td>{auxPrice(iten.price)}</td>
+              <td>{auxPrice(iten.fullValue)}</td>
+              {user?.isAdmin && (
+                <td
+                  onClick={() => {
+                    setId_(iten.id);
+                    setAmount(iten.amount);
+                    openModalEdit();
+                  }}
+                >
+                  <BsPen />
+                </td>
+              )}
+              {user?.isAdmin && (
+                <td
+                  onClick={() => {
+                    setId_(iten.id);
+                    openModal();
+                  }}
+                >
                   <BsXLg />
                 </td>
               )}
             </tr>
           ))}
         </tbody>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          ariaHideApp={false}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0,0,0, .70)",
+              zIndex: "1000",
+            },
+            content: {
+              border: "2px solid var(--color-light-blue)",
+              backgroundColor: "var(--color-blue)",
+              borderRadius: "20px",
+              outline: "none",
+              width: "min-content",
+              height: "max-content",
+              margin: "auto",
+            },
+          }}
+        >
+          <Dialogconfirm
+            closeModal={closeModal}
+            set_IsDelete={setIsDelete}
+            textCancel="Cancelar"
+            textConfirm="Confirmar"
+            title="Tem certeza que deseja remover este item?"
+          />
+        </Modal>
+
+        <Modal
+          isOpen={modalIsOpenEdit}
+          onRequestClose={closeModalEdit}
+          ariaHideApp={false}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0,0,0, .70)",
+              zIndex: "1000",
+            },
+            content: {
+              border: "2px solid var(--color-light-blue)",
+              backgroundColor: "var(--color-blue)",
+              borderRadius: "20px",
+              outline: "none",
+              width: "min-content",
+              height: "max-content",
+              margin: "auto",
+            },
+          }}
+        >
+          <Edit>
+            <p>Qual seria a quantidade?</p>
+            <input
+              type="number"
+              min={1}
+              defaultValue={amount}
+              onChange={(e) => setAmount(parseInt(e.target.value))}
+            />
+            <Button propsButton={{ onClick: () => update() }} text="Alterar" />
+          </Edit>
+        </Modal>
       </TableList>
-      {!filteredRequests.length && (
+      {!filteredRequests.length && pedidos && (
         <h3 className="notFound">
           Nenhum pedido com '{search}' foi encontrado!
         </h3>
       )}
 
-      {user?.isAdm && (
+      {!pedidos && <h3 className="notFound">Nenhum pedido ativo!</h3>}
+
+      {user?.isAdmin && pedidos && (
         <div className="button">
-          <p>Valor total: R$ {pedidos.total}</p>
-          <Button text="Fechar Pedido" />
+          <p>Valor total: R$ {auxPrice(pedidos?.fullValue)}</p>
+          <Button
+            text="Fechar Pedido"
+            propsButton={{
+              onClick: () => {
+                setId_(pedidos.id);
+                openModal();
+              },
+            }}
+          />
         </div>
       )}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0, .70)",
+            zIndex: "1000",
+          },
+          content: {
+            border: "2px solid var(--color-light-blue)",
+            backgroundColor: "var(--color-blue)",
+            borderRadius: "20px",
+            outline: "none",
+            width: "min-content",
+            height: "max-content",
+            margin: "auto",
+          },
+        }}
+      >
+        <Dialogconfirm
+          closeModal={closeModal}
+          set_IsDelete={setMarkOrdered}
+          textCancel="Cancelar"
+          textConfirm="Confirmar"
+          title="Tem certeza que deseja encomendar esses itens?"
+        />
+      </Modal>
     </Conteiner>
   );
 }

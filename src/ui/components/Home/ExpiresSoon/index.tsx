@@ -1,32 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { Text } from "../../Text";
 import { Conteiner } from "./styles";
 
 import { Link } from "react-router-dom";
+import { useProduct } from "../../../../data/contexts/product";
+import { auxPrice } from "../../../../helpers";
 interface Props {
   class_name: string;
 }
-interface expiresSoonProps {
-  codigo: string;
-  tipo: "Motor" | "Suspensão" | "Freio";
-  valorUnid: number;
-  qtd: number;
-}
-const expiresSoon: expiresSoonProps[] = [
-  {
-    codigo: "52WVC10338",
-    tipo: "Motor",
-    valorUnid: 5632.24,
-    qtd: 2,
-  },
-  {
-    codigo: "M303304",
-    tipo: "Freio",
-    valorUnid: 250.0,
-    qtd: 4,
-  },
-];
+
 
 export function ExpiresSoon({ class_name }: Props) {
+  const { searchProducts, product } = useProduct();
+  useEffect(() => {
+    searchProducts("", "stock,asc");
+  }, []);
+
   return (
     <Conteiner className={class_name}>
       <div className="header">
@@ -61,18 +51,18 @@ export function ExpiresSoon({ class_name }: Props) {
         <thead>
           <tr>
             <th>Código</th>
-            <th>Tipo</th>
+            <th>Produto</th>
             <th>Valor unid.</th>
             <th>QTD</th>
           </tr>
         </thead>
         <tbody>
-          {expiresSoon.map((iten, i) => (
+          {product?.slice(0, 3).map((iten, i) => (
             <tr key={i}>
-              <td>{iten.codigo}</td>
-              <td>{iten.tipo}</td>
-              <td>R$ {iten.valorUnid}</td>
-              <td>{iten.qtd}</td>
+              <td>{iten.id.split("-")[0]}</td>
+              <td>{iten.name}</td>
+              <td>R$ {auxPrice(iten.price)}</td>
+              <td>{iten.stock}</td>
             </tr>
           ))}
         </tbody>

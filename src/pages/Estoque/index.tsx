@@ -23,7 +23,7 @@ export function Estoque() {
         icon={<BsListOl />}
       />
     </Link>,
-    <Link to="/consultar-historico">
+    <Link to="/vendas/historico-vendas">
       <SiderBarItens
         name="Consultar Histórico"
         isSelected={splitLocation[1] === "consultar-historico"}
@@ -34,28 +34,26 @@ export function Estoque() {
   useEffect(() => {
     getProducts();
   }, []);
-
   return (
     <Conteiner>
       <SiderBar items={array} />
       <main>
         <Text text="Estoque" color="black" type="h1" styled="normal" />
-        <Search />
+        <Search type="product" />
         <div className="grid">
-          {product?.products.map((iten, i) => (
+          {product?.map((iten, i) => (
             <Link to={"/estoque/" + iten.id} key={i}>
               <ProdutosItens
-                category={iten.category}
                 id={iten.id}
-                images={iten.images}
+                image={iten.image}
                 price={iten.price}
-                title={iten.title}
+                name={iten.name}
                 key={i}
               />
             </Link>
           ))}
         </div>
-        {!product?.products.length && (
+        {!product?.length && (
           <h3 className="notFound">Nenhum produto foi encontrado!</h3>
         )}
       </main>

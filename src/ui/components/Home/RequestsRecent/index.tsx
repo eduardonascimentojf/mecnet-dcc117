@@ -1,35 +1,46 @@
+import { useEffect, useState } from "react";
 import { Text } from "../../Text";
 import { Conteiner } from "./styles";
-
 import { Link } from "react-router-dom";
+import { apiJava } from "../../../../data/api";
+import { ListOrderItems, PedidoType } from "../../../../@types";
+import { auxDate, auxPrice } from "../../../../helpers";
+
 interface Props {
   class_name: string;
 }
-interface requestsRecentProps {
-  codigo: number;
-  status: "Completo" | "Em aberto";
-  valorUnid: number;
-  qtd: number;
-  data: string;
-}
-const requestsRecent: requestsRecentProps[] = [
-  {
-    codigo: 534764873,
-    status: "Completo",
-    valorUnid: 123.94,
-    qtd: 20,
-    data: "24/03/2023",
-  },
-  {
-    codigo: 637425465,
-    status: "Em aberto",
-    valorUnid: 78.35,
-    qtd: 10,
-    data: "21/03/2023",
-  },
-];
 
 export function RequestsRecent({ class_name }: Props) {
+  const [pedidos, setPedidos] = useState<PedidoType[]>();
+  useEffect(() => {
+    apiJava
+      .get<PedidoType[]>("/order/all")
+      .then((response) => {
+        setPedidos(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [pedidos]);
+  function auxQuantidade(listOrderItems: ListOrderItems[]) {
+    let quantidade = 0;
+    listOrderItems.map((iten) => {
+      quantidade += iten.amount;
+    });
+    return quantidade;
+  }
+  function getDias() {
+    if (pedidos && pedidos[0]?.updatedAt != undefined) {
+      const data = new Date(pedidos[0]?.updatedAt);
+      const date2 = new Date();
+      const timeDiff = Math.abs(date2.getTime() - data.getTime());
+      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      if (timeDiff / (1000 * 3600 * 24) < 1)
+        return "Últimas em menos de um dia";
+      if (diffDays >= 2) return `Últimas em ${diffDays} dias`;
+      return "Últimas em 1 dia";
+    }
+  }
   return (
     <Conteiner className={class_name}>
       <div className="header">
@@ -42,7 +53,7 @@ export function RequestsRecent({ class_name }: Props) {
           />
           <Text
             class_name="subtitle"
-            text={"Últimas 2 dias"}
+            text={getDias()}
             styled={"italic"}
             type={"span"}
             color={"black"}
@@ -71,19 +82,25 @@ export function RequestsRecent({ class_name }: Props) {
           </tr>
         </thead>
         <tbody>
-          {requestsRecent.map((iten, i) => (
+          {pedidos?.slice(0, 3).map((iten, i) => (
             <tr key={i}>
-              <td>{iten.codigo}</td>
-              <td
-                className={
-                  iten.status === "Completo" ? "complete" : "notComplete"
-                }
-              >
-                <p>{iten.status}</p>
-              </td>
-              <td>R$ {iten.valorUnid}</td>
-              <td>{iten.qtd}</td>
-              <td>{iten.data}</td>
+              <td>{iten.id.split("-")[0]}</td>
+
+              {iten.received ? (
+                <td className="complete">
+                  {" "}
+                  <p>Completo</p>
+                </td>
+              ) : (
+                <td className="notComplete">
+                  {" "}
+                  <p>Em aberto</p>{" "}
+                </td>
+              )}
+
+              <td>R$ {auxPrice(iten.fullValue)}</td>
+              <td>{auxQuantidade(iten.listOrderItems)}</td>
+              <td>{auxDate(iten.updatedAt)?.split("|")[0]}</td>
             </tr>
           ))}
         </tbody>

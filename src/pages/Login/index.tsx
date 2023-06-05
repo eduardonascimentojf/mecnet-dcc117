@@ -3,19 +3,24 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { Text } from "../../ui/components/Text";
 import { Button } from "../../ui/components/Button";
-import { useAuth } from "../../data/contexts/auth";
+import { User, useAuth } from "../../data/contexts/auth";
 
 import { Conteiner } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 import mecnet from "../../assets/mecnet.png";
+import { apiJava } from "../../data/api";
 
 type IFormLogin = {
-  user: string;
+  login: string;
   password: string;
+};
+type AuthResponse = {
+  token: string;
+  employee: User;
 };
 
 export function Login() {
-  const { setUser, employees } = useAuth();
+  const { setUser, setControllerLogin } = useAuth();
 
   const {
     register,
@@ -23,27 +28,45 @@ export function Login() {
     handleSubmit,
   } = useForm<IFormLogin>();
   const onSubmit: SubmitHandler<IFormLogin> = (data) =>
-    login(data.user, data.password);
+    login(data.login, data.password);
 
-  function login(_user: string, _password: string) {
-    employees.forEach((element) => {
-      if (
-        element.user.toString() == _user &&
-        element.password.toString() == _password
-      ) {
-        setUser(element);
-      }
-    });
-    toast.error("Usuário e/ou senha inválidos", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  async function login(_login: string, _password: string) {
+    await apiJava
+      .post<AuthResponse>("/login", {
+        login: _login,
+        password: _password,
+      })
+      .then((response) => {
+        const { token, employee } = response.data;
+        localStorage.setItem("@User:token", token);
+        apiJava.defaults.headers.common.authorization = `Bearer ${token}`;
+        setUser(employee);
+        setControllerLogin(true);
+      })
+      .catch((err) => {
+        if (err.message == "Network Error") {
+          toast.error("Serivdor não está respondendo", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else
+          toast.error("Usuário e/ou senha inválidos", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+      });
   }
   return (
     <Conteiner className="login">
@@ -65,11 +88,11 @@ export function Login() {
           type="text"
           // required={true} // verificar qual o grupo prefere
           placeholder="Usuário"
-          {...register("user", {
+          {...register("login", {
             required: true,
           })}
         />
-        {errors.user && (
+        {errors.login && (
           <Text
             type="errorRequired"
             color="white"

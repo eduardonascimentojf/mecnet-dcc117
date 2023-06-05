@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
 import { Conteiner } from "./styles";
@@ -8,7 +8,8 @@ import { BsCardChecklist } from "react-icons/bs";
 
 import { ListSearch } from "../../ui/components/ListSearch";
 
-// import { useAuth } from "../../data/contexts/auth";
+import { apiJava } from "../../data/api";
+import { PedidoType } from "../../@types";
 
 export function HistoricoPedidos() {
   const location = useLocation();
@@ -27,44 +28,17 @@ export function HistoricoPedidos() {
     </Link>,
   ];
 
-  const arrayTeste = [
-    {
-      produto: "Kit de Suspensão Dianteira",
-      marca: "Cofap",
-      fornecedor: "Auto Peças Jundiaí",
-      qtd: "01",
-      VUnid: "R$ 576,82",
-      data: "11/04/23",
-      VTotal: "R$ 576,82",
-    },
-    {
-      produto: "Kit de Suspensão Mercedes Actros 2651 2022",
-      marca: "acTR",
-      fornecedor: "GMA Auto Peças",
-      qtd: "01",
-      VUnid: "R$ 1576,82",
-      data: "11/04/23",
-      VTotal: "R$ 1576,82",
-    },
-    {
-      produto: "Lona Freio Scania P114 P270",
-      marca: "Fras-le",
-      fornecedor: "Fras-le",
-      qtd: "01",
-      VUnid: "R$ 576,82",
-      data: "11/04/23",
-      VTotal: "R$ 576,82",
-    },
-    {
-      produto: "Redutor GNV 5ª",
-      marca: "Lovato",
-      fornecedor: "Lovato LTDA",
-      qtd: "01",
-      VUnid: "R$ 1576,82",
-      data: "11/04/23",
-      VTotal: "R$ 1576,82",
-    },
-  ];
+  const [todosPedidos, setTodosPedidos] = useState<PedidoType[]>();
+  useEffect(() => {
+    apiJava
+      .get<PedidoType[]>("/order/all/")
+      .then((response) => {
+        setTodosPedidos(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <Conteiner>
       <SiderBar items={array} />
@@ -75,19 +49,15 @@ export function HistoricoPedidos() {
           type="h3"
           styled="normal"
         />
-        <ListSearch
-          type={"pedidos"}
-          list={arrayTeste}
-          arg={{
-            produto: "Produto",
-            marca: "Marca",
-            fornecedor: "Fornecedor",
-            qtd: "Qtd.",
-            VUnid: "Preço unid.",
-            data: "Data",
-            VTotal: "Total",
-          }}
-        />
+        {todosPedidos != undefined ? (
+          <ListSearch
+            type={"pedidos"}
+            list={todosPedidos}
+            arg={["Codigo", "Produtos", "Valor", "Data", "Recebido"]}
+          />
+        ) : (
+          <h3 className="notFound">Nenhum pedido foi encontrado!</h3>
+        )}
       </main>
     </Conteiner>
   );

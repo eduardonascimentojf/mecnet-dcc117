@@ -14,6 +14,7 @@ function App() {
         <>
           <Routes>
             <Route path="/" element={<P.Home />} id="route" />
+
             <Route path="/produtos" element={<P.Produtos />} />
             <Route path="/pedidos" element={<P.Pedidos />} />
             <Route path="/estoque" element={<P.Estoque />} />
@@ -27,6 +28,7 @@ function App() {
               path="vendas/historico-vendas"
               element={<P.HistoricoVendas />}
             />
+            <Route path="vendas/consulta-total" element={<P.TodasVendas />} />
             <Route
               path="/funcionarios"
               element={<P.Funcionarios />}

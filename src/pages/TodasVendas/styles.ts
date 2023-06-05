@@ -19,5 +19,5 @@ export const Conteiner = styled.div`
     button {
       align-self: flex-end;
     }
-  }
+  } 
 `;

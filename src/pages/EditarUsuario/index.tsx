@@ -2,27 +2,27 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Text } from "../../ui/components/Text";
 import { Conteiner } from "./styles";
 import { Button } from "../../ui/components/Button";
-
 import { useAuth } from "../../data/contexts/auth";
 import { BsXCircle } from "react-icons/bs";
 import { CheckboxToggle } from "../../ui/styles/checkboxToggle";
 import { toast } from "react-toastify";
+import { apiJava } from "../../data/api";
 
 type IFormLogin = {
   name: string;
   email: string;
-  user: string;
-  password: string;
-  isAdm: boolean;
+  userName: string;
+  passWord: string;
+  isAdmin: boolean;
 };
 interface Props {
   closeModal: () => void;
-  id: number;
+  id: string;
 }
 
 export function EditarUsuario(props: Props) {
-  const { employees } = useAuth();
-  const element = employees.find((element) => element.id == props.id);
+  const { employees, setEmployees } = useAuth();
+  const element = employees?.find((element) => element.id == props.id);
   const {
     register,
     formState: { errors },
@@ -30,29 +30,44 @@ export function EditarUsuario(props: Props) {
   } = useForm<IFormLogin>();
 
   const onSubmit: SubmitHandler<IFormLogin> = (data) => updateEmployee(data);
-  function updateEmployee(propsEdit: IFormLogin) {
-    employees.map((employee) => {
-      if (employee.id == props.id) {
-        employee.name = propsEdit.name;
-        employee.email = propsEdit.email;
-        employee.user = propsEdit.user;
-        employee.password = propsEdit.password;
-        employee.isAdm = propsEdit.isAdm;
-        employee.id = props.id;
-      }
-    });
-
+  async function updateEmployee(propsEdit: IFormLogin) {
+    await apiJava
+      .put(`/employee/${props.id}`, {
+        name: propsEdit.name,
+        email: propsEdit.email,
+        userName: propsEdit.userName,
+        passWord: propsEdit.passWord,
+        isAdmin: propsEdit.isAdmin,
+      })
+      .then((res) => {
+        const index = employees.map((e) => e.id).indexOf(props.id);
+        res.data.userName = res.data.username;
+        employees.splice(index, 1, res.data);
+        setEmployees(employees);
+        toast.success("Funcionário atualizado com sucesso!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      })
+      .catch((err) => {
+        toast.error(err.response.data, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      });
     props.closeModal();
-    toast.success("Informação atualizada com sucesso!", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
   }
 
   return (
@@ -124,15 +139,15 @@ export function EditarUsuario(props: Props) {
             <Text color="white" styled="italic" text="Usuário" type="span" />
             <input
               type="text"
-              defaultValue={element?.user}
+              defaultValue={element?.userName}
               placeholder="Usuário"
-              {...register("user", {
+              {...register("userName", {
                 required: true,
                 minLength: 5,
                 maxLength: 15,
               })}
             />
-            {errors.user && (
+            {errors.userName && (
               <Text
                 type="errorRequired"
                 color="white"
@@ -142,24 +157,17 @@ export function EditarUsuario(props: Props) {
             )}
           </div>
           <div className="inputLabel">
-            <Text
-              color="white"
-              styled="italic"
-              text="Senha"
-              type="span"
-              required={true}
-            />
+            <Text color="white" styled="italic" text="Senha" type="span" />
             <input
               type="password"
               placeholder="Senha"
-              defaultValue={element?.password}
-              {...register("password", {
-                required: true,
-                minLength: 6,
+              defaultValue="*****"
+              {...register("passWord", {
+                minLength: 5,
                 maxLength: 12,
               })}
             />
-            {errors.password && (
+            {errors.passWord && (
               <Text
                 type="errorRequired"
                 color="white"
@@ -173,8 +181,8 @@ export function EditarUsuario(props: Props) {
             <CheckboxToggle
               type="checkbox"
               placeholder="É gerente"
-              defaultChecked={element?.isAdm}
-              {...register("isAdm")}
+              defaultChecked={element?.isAdmin}
+              {...register("isAdmin")}
             />
           </div>
         </div>

@@ -55,7 +55,7 @@ export function Home() {
     </Link>,
   ];
   const { user } = useAuth();
-  if (user?.isAdm == true) {
+  if (user?.isAdmin == true) {
     array.push(
       <Link to="/funcionarios">
         <SiderBarItens
@@ -74,7 +74,7 @@ export function Home() {
         <RequestsRecent class_name="requestsRecent" />
         <Graph class_name="graph" />
         <ProgressBar class_name="progressbar" />
-        <ExpiresSoon class_name="expiresSoon"  />
+        <ExpiresSoon class_name="expiresSoon" />
       </div>
     </Conteiner>
   );
