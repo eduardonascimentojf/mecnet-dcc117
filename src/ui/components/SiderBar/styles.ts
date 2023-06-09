@@ -2,27 +2,31 @@ import styled from "styled-components";
 
 export const Conteiner = styled.div`
   background-color: var(--color-blue);
-  border-radius: 0px 15px 15px 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  border-radius: 0rem 0.9rem 0.9rem 0rem;
   height: 100%;
-  width: 200px;
+  width: 12.5rem;
   img {
-    height: 50px;
-    margin: 40px auto;
+    height: 3.1rem;
+    margin: 2.5rem auto;
     align-items: center;
     display: flex;
   }
+  ul {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -moz-box-pack: justify;
+  }
   .lastItem {
-    position: fixed;
-    bottom: 0;
-    width: 200px;
-    > div {
+    width: 12.5rem;
+    align-self: flex-end;
+    margin: auto auto 0.9rem auto;
+    div {
       justify-content: end;
       flex-direction: row-reverse;
+
       p {
-        margin-right: 10px;
+        margin-right: 0.6rem;
       }
     }
   }

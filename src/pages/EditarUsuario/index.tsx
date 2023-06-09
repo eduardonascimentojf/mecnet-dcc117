@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
+import { Conteiner } from "../NovoUsuario/styles";
 import { Button } from "../../ui/components/Button";
 import { useAuth } from "../../data/contexts/auth";
 import { BsXCircle } from "react-icons/bs";
@@ -186,7 +186,7 @@ export function EditarUsuario(props: Props) {
             />
           </div>
         </div>
-        <Button text="Atualizar" propsButton={{ type: "submit" }} />
+        <Button text="Atualizar" propsButton={{ type: "submit" }} type="info" />
       </form>
     </Conteiner>
   );

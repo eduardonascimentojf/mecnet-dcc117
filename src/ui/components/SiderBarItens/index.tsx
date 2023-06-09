@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Conteiner } from "./styles";
+import { Text } from "../Text";
 type Props = {
   name: string;
   isSelected: boolean;
@@ -11,7 +12,7 @@ export function SiderBarItens({ name, isSelected, icon, id }: Props) {
   return (
     <Conteiner className={isSelected ? "isSelected" : ""} key={id}>
       {icon}
-      <p>{name}</p>
+      <Text text={name} color="white" styled="normal" type="p" />
     </Conteiner>
   );
 }

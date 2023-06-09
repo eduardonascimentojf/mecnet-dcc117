@@ -16,7 +16,7 @@ export const Conteiner = styled.div`
   }
 
   svg {
-    fill: red;
+    fill: var(--color-white);
     height: 25px;
     width: 25px;
     padding: 3px;
@@ -24,8 +24,7 @@ export const Conteiner = styled.div`
     align-self: flex-end;
     margin-right: 50px;
     :hover {
-      background-color: red;
-      fill: white;
+      fill: var(--color-red);
     }
   }
   input {
@@ -68,9 +67,6 @@ export const Conteiner = styled.div`
     button {
       margin-bottom: 40px;
       align-self: flex-end;
-      :hover {
-        background-color: var(--color-white);
-      }
     }
   }
 `;

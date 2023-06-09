@@ -66,6 +66,7 @@ export function Funcionarios() {
               propsButton={{ onClick: openModal }}
               icon={<BsPersonPlus />}
               text="Novo funcionário"
+              type="info"
             />
 
             <Modal

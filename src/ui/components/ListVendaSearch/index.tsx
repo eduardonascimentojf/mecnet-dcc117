@@ -70,7 +70,7 @@ export function ListVendaSearch(props: ListProps) {
         </tbody>
       </TableList>
       {!filteredList.length && (
-        <h3 className="notFound">
+        <h3 className="notFoundTable">
           Nenhuma informação com '{search}' foi encontrado!
         </h3>
       )}

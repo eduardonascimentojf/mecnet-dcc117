@@ -1,9 +1,14 @@
 import { User, VendasType } from "../../../@types";
 import pdfMake from "pdfmake/build/pdfmake";
-
+import * as pdfFonts from "pdfmake/build/vfs_fonts.js";
 import { auxDate, auxPrice } from "../../../helpers";
 
-export function PDF_Venda(vendas: VendasType[], user: User | null) {
+export function PDF_Venda(
+  vendas: VendasType[],
+  user: User | null,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   function date() {
     const data = new Date();
     data.setHours(data.getHours() - 3);
@@ -81,5 +86,8 @@ export function PDF_Venda(vendas: VendasType[], user: User | null) {
     content: [details],
     footer: Rodape,
   };
-  return pdfMake.createPdf(docDefinitios).download("hist_venda_" + user?.name);
+  return (
+    pdfMake.createPdf(docDefinitios).download("hist_venda_" + user?.name),
+    setIsLoading(false)
+  );
 }

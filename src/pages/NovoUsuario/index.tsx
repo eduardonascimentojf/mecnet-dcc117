@@ -187,7 +187,7 @@ export function NovoUsuario(props: Props) {
             />
           </div>
         </div>
-        <Button text="Cadastrar" propsButton={{ type: "submit" }} />
+        <Button text="Cadastrar" propsButton={{ type: "submit" }} type="info" />
       </form>
     </Conteiner>
   );

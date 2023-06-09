@@ -9,6 +9,9 @@ import Modal from "react-modal";
 import { Dialogconfirm } from "../Dialogconfirm";
 import { toast } from "react-toastify";
 import { auxPrice } from "../../../helpers";
+import { Text } from "../Text";
+import { ConteinerInput } from "../Input/styles";
+
 type ListOrderItems = {
   id: string;
   isComplete: boolean;
@@ -30,7 +33,9 @@ export function PedidosSearch() {
   const { user } = useAuth();
   const [search, setSearch] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpenDelete, setIsOpenDelete] = useState(false);
   const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
+
   const [isDelete, setIsDelete] = useState(false);
   const [markOrdered, setMarkOrdered] = useState(false);
   const [id_, setId_] = useState("");
@@ -178,6 +183,12 @@ export function PedidosSearch() {
       });
   }
 
+  function openModalRemove() {
+    setIsOpenDelete(true);
+  }
+  function closeModalRemove() {
+    setIsOpenDelete(false);
+  }
   function openModal() {
     setIsOpen(true);
   }
@@ -193,7 +204,7 @@ export function PedidosSearch() {
   return (
     <Conteiner>
       <div className="SearchButton">
-        <input
+        <ConteinerInput
           type="search"
           placeholder="Buscar..."
           value={search}
@@ -239,7 +250,7 @@ export function PedidosSearch() {
                 <td
                   onClick={() => {
                     setId_(iten.id);
-                    openModal();
+                    openModalRemove();
                   }}
                 >
                   <BsXLg />
@@ -249,8 +260,8 @@ export function PedidosSearch() {
           ))}
         </tbody>
         <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
+          isOpen={modalIsOpenDelete}
+          onRequestClose={closeModalRemove}
           ariaHideApp={false}
           style={{
             overlay: {
@@ -269,7 +280,7 @@ export function PedidosSearch() {
           }}
         >
           <Dialogconfirm
-            closeModal={closeModal}
+            closeModal={closeModalRemove}
             set_IsDelete={setIsDelete}
             textCancel="Cancelar"
             textConfirm="Confirmar"
@@ -298,29 +309,48 @@ export function PedidosSearch() {
           }}
         >
           <Edit>
-            <p>Qual seria a quantidade?</p>
-            <input
+            <Text
+              text="Qual seria a quantidade?"
+              styled={"normal"}
+              type={"p"}
+              color={"white"}
+            />
+            <ConteinerInput
               type="number"
               min={1}
               defaultValue={amount}
               onChange={(e) => setAmount(parseInt(e.target.value))}
             />
-            <Button propsButton={{ onClick: () => update() }} text="Alterar" />
+            <Button
+              type="confirm"
+              propsButton={{ onClick: () => update() }}
+              text="Alterar"
+            />
           </Edit>
         </Modal>
       </TableList>
       {!filteredRequests.length && pedidos && (
-        <h3 className="notFound">
-          Nenhum pedido com '{search}' foi encontrado!
-        </h3>
+        <Text
+          text={"Nenhum pedido com '" + search + "' foi encontrado!"}
+          styled={"normal"}
+          type={"notFound"}
+          color={"black"}
+        />
       )}
 
       {!pedidos && <h3 className="notFound">Nenhum pedido ativo!</h3>}
 
       {user?.isAdmin && pedidos && (
         <div className="button">
-          <p>Valor total: R$ {auxPrice(pedidos?.fullValue)}</p>
+          <Text
+            text={"Valor total: R$ " + auxPrice(pedidos?.fullValue)}
+            styled={"normal"}
+            type={"p"}
+            color={"black"}
+          />
+
           <Button
+            type="info"
             text="Fechar Pedido"
             propsButton={{
               onClick: () => {

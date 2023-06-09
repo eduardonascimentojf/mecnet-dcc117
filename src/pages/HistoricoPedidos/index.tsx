@@ -1,7 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { Link, useLocation } from "react-router-dom";
 import { BsCardChecklist } from "react-icons/bs";
@@ -40,13 +39,13 @@ export function HistoricoPedidos() {
       });
   }, []);
   return (
-    <Conteiner>
+    <div>
       <SiderBar items={array} />
       <main>
         <Text
           text="Histórico de Pedidos"
           color="black"
-          type="h3"
+          type="h1"
           styled="normal"
         />
         {todosPedidos != undefined ? (
@@ -56,9 +55,14 @@ export function HistoricoPedidos() {
             arg={["Codigo", "Produtos", "Valor", "Data", "Recebido"]}
           />
         ) : (
-          <h3 className="notFound">Nenhum pedido foi encontrado!</h3>
+          <Text
+            text="Nenhum pedido foi encontrado!"
+            styled="normal"
+            type="notFound"
+            color={"black"}
+          />
         )}
       </main>
-    </Conteiner>
+    </div>
   );
 }

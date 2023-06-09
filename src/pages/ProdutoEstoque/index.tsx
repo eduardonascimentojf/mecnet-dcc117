@@ -14,7 +14,7 @@ import { useAuth } from "../../data/contexts/auth";
 import { apiJava } from "../../data/api";
 import { Stock } from "../../@types";
 import { auxPrice } from "../../helpers";
-
+import { Carousel } from "react-carousel-minimal";
 export function ProdutoEstoque() {
   const params = useParams();
   const location = useLocation();
@@ -67,7 +67,12 @@ export function ProdutoEstoque() {
     };
     fetchData();
   }, []);
-
+  const data: { image: string }[] = [];
+  stock?.image.map((iten) => {
+    data.push({
+      image: iten,
+    });
+  });
   return (
     <Conteiner>
       <SiderBar items={array} />
@@ -75,11 +80,31 @@ export function ProdutoEstoque() {
         <main>
           <Text text={stock.name} color="black" type="h3" styled="normal" />
           <div className="gridProduct">
-            <img src={stock.image[0]} alt={stock.name} />
+            <div>
+              <Carousel
+                data={data}
+                time={2000}
+                radius="10px"
+                slideNumber={true}
+                automatic={false}
+                dots={true}
+                pauseIconColor="white"
+                pauseIconSize="40px"
+                slideBackgroundColor="darkgrey"
+                slideImageFit="fill"
+                thumbnails={false}
+                style={{
+                  height: "200px",
+                }}
+              />
+            </div>
 
             <div className="info">
-              <h2>Preço Atual:</h2>
-              <span>{"R$ " + auxPrice(stock.price)}</span>
+              <Text type="h4" text="Informação" styled="normal" color="black" />
+              <p className="price">
+                Preço:
+                <span>{"R$ " + auxPrice(stock.price)}</span>
+              </p>
               <p>{stock.description}</p>
               <p>Lojas: {stock.manufacturer}</p>
               <a href="https://loja.cofap.com.br/p/1863797/kit-de-suspensao-dianteira-cofap-tkc03117-unitario">
@@ -110,7 +135,7 @@ export function ProdutoEstoque() {
                   editAuto === true ? "autoinfo open" : "autoinfo close"
                 }
               >
-                <h5>LIMITES</h5>
+                <h4>LIMITES</h4>
                 <ul>
                   <li>
                     <p>Preço Mín.:</p>
@@ -133,12 +158,13 @@ export function ProdutoEstoque() {
                   <Button
                     text="ATUALIZAR"
                     propsButton={{ onClick: openModal }}
+                    type="info"
                   />
                 )}
               </div>
             </div>
             <div className="lastDiv">
-              <Button text="Mais detalhes" />
+              <Button text="Mais detalhes" type="info" />
             </div>
           </div>
           <Modal
@@ -171,7 +197,13 @@ export function ProdutoEstoque() {
           </Modal>
         </main>
       ) : (
-        <h3 className="notFound">Nenhum produto foi encontrado!</h3>
+        <Text
+          type="notFound"
+          text="Nenhum produto foi encontrado!"
+          styled="normal"
+          color="black"
+          class_name="notFound"
+        />
       )}
     </Conteiner>
   );

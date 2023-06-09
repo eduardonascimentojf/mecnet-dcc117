@@ -24,6 +24,12 @@ export function ProdutosItens(props: Product) {
         <div>
           <Text type="h4" text={props.name} color="black" styled="normal" />
           <Text
+            type="span"
+            text={props.description}
+            color="black"
+            styled="normal"
+          />
+          <Text
             type="p"
             text={"R$ " + auxPrice(props.price)}
             color="black"
@@ -49,6 +55,8 @@ export function ProdutosItens(props: Product) {
             overflow: "hidden",
             borderRadius: "20px",
             outline: " none",
+            width: "60%",
+            margin: "auto",
           },
         }}
       >

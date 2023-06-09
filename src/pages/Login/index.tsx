@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
-
+import Typewriter from "typewriter-effect";
 import { Text } from "../../ui/components/Text";
 import { Button } from "../../ui/components/Button";
 import { useAuth } from "../../data/contexts/auth";
@@ -10,6 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import mecnet from "../../assets/mecnet.png";
 import { apiJava } from "../../data/api";
 import { User } from "../../@types";
+import { useState } from "react";
+import { Input } from "../../ui/components/Input";
+import { ConteinerInput } from "../../ui/components/Input/styles";
 
 type IFormLogin = {
   login: string;
@@ -22,7 +25,7 @@ type AuthResponse = {
 
 export function Login() {
   const { setUser, setControllerLogin } = useAuth();
-
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     formState: { errors },
@@ -32,6 +35,7 @@ export function Login() {
     login(data.login, data.password);
 
   async function login(_login: string, _password: string) {
+    setIsLoading(true);
     await apiJava
       .post<AuthResponse>("/login", {
         login: _login,
@@ -43,6 +47,7 @@ export function Login() {
         apiJava.defaults.headers.common.authorization = `Bearer ${token}`;
         setUser(employee);
         setControllerLogin(true);
+        setIsLoading(false);
       })
       .catch((err) => {
         if (err.message == "Network Error") {
@@ -67,15 +72,35 @@ export function Login() {
             progress: undefined,
             theme: "dark",
           });
+        console.log(err);
+        setIsLoading(false);
       });
   }
+
   return (
     <Conteiner className="login">
       <Text text="BEM VINDO" type="h4" styled="normal" color="white" />
       <div className="mecnet">
         <img src={mecnet} className="logo" alt="Mecnet logo" />
-
-        <Text text="MECNET" type="h2" styled="normal" color="white" />
+        <div className="title">
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter
+                .typeString("<span class=fix>Mecnet é <span>")
+                .pauseFor(500)
+                .typeString("<span class=info>agilidade!</span>")
+                .pauseFor(250)
+                .deleteChars(10)
+                .pauseFor(250)
+                .typeString("<span class=info>economia!</span>")
+                .pauseFor(250)
+                .deleteChars(10)
+                .pauseFor(250)
+                .typeString("<span class=info>praticidade!</span>")
+                .start();
+            }}
+          />
+        </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Text
@@ -85,9 +110,8 @@ export function Login() {
           type="span"
           required={true}
         />
-        <input
+        <ConteinerInput
           type="text"
-          // required={true} // verificar qual o grupo prefere
           placeholder="Usuário"
           {...register("login", {
             required: true,
@@ -110,7 +134,7 @@ export function Login() {
           required={true}
         />
 
-        <input
+        <ConteinerInput
           type="password"
           placeholder="Senha"
           {...register("password", {
@@ -125,7 +149,14 @@ export function Login() {
             text="A senha é necessária"
           />
         )}
-        <Button text="Login" propsButton={{ type: "submit" }} />
+
+        <Button
+          text="Login"
+          disable={isLoading}
+          propsButton={{ type: "submit" }}
+          type="info"
+        />
+
         <ToastContainer />
       </form>
     </Conteiner>

@@ -3,7 +3,6 @@
 import { ReactNode, useEffect } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { Link, useLocation } from "react-router-dom";
 import { BsBoxes, BsCardChecklist, BsCart2 } from "react-icons/bs";
@@ -46,7 +45,7 @@ export function Produtos() {
   }, []);
 
   return (
-    <Conteiner>
+    <div>
       <SiderBar items={array} />
       <main>
         <Text text="Produtos" color="black" type="h1" styled="normal" />
@@ -59,14 +58,20 @@ export function Produtos() {
               name={iten.name}
               image={iten.image}
               price={iten.price}
+              description={iten.description}
               key={i}
             />
           ))}
         </div>
         {!productCatalog?.length && (
-          <h3 className="notFound">Nenhum produto foi encontrado!</h3>
+          <Text
+            text="Nenhum produto foi encontrado!"
+            styled={"normal"}
+            type={"notFound"}
+            color={"black"}
+          />
         )}
       </main>
-    </Conteiner>
+    </div>
   );
 }

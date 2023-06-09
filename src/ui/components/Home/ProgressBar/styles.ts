@@ -12,7 +12,7 @@ export const Conteiner = styled.div`
     align-items: center;
   }
   h3 {
-    margin-top: 15px;
+    margin-top: 0.9rem;
     font-weight: bold;
     font-size: large;
     text-align: center;
@@ -25,9 +25,9 @@ export const Conteiner = styled.div`
     }
   }
   .progress_bar {
-    width: 200px;
-    height: 200px;
+    width: 12.5rem;
     align-self: end;
     margin-right: 10%;
+    margin-bottom: 0.3rem;
   }
 `;

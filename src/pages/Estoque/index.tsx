@@ -2,13 +2,13 @@
 import { ReactNode, useEffect } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { Link, useLocation } from "react-router-dom";
 import { BsCardChecklist, BsListOl } from "react-icons/bs";
 import { useProduct } from "../../data/contexts/product";
 import { Search } from "../../ui/components/Search";
 import { ProdutosItens } from "../../ui/components/ProdutosItens";
+// import { Loading } from "../../ui/components/Loading";
 
 export function Estoque() {
   const location = useLocation();
@@ -35,7 +35,7 @@ export function Estoque() {
     getProducts();
   }, []);
   return (
-    <Conteiner>
+    <div>
       <SiderBar items={array} />
       <main>
         <Text text="Estoque" color="black" type="h1" styled="normal" />
@@ -48,15 +48,21 @@ export function Estoque() {
                 image={iten.image}
                 price={iten.price}
                 name={iten.name}
+                description={iten.description}
                 key={i}
               />
             </Link>
           ))}
         </div>
         {!product?.length && (
-          <h3 className="notFound">Nenhum produto foi encontrado!</h3>
+          <Text
+            text="Nenhum produto foi encontrado!"
+            styled={"normal"}
+            type={"notFound"}
+            color={"black"}
+          />
         )}
       </main>
-    </Conteiner>
+    </div>
   );
 }

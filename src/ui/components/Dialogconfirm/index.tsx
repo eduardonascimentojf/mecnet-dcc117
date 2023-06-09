@@ -1,6 +1,7 @@
 import { BsXCircle } from "react-icons/bs";
 import { Conteiner } from "./styles";
 import { Text } from "../Text";
+import { Button } from "../Button";
 interface Props {
   title: string;
   textConfirm: string;
@@ -20,12 +21,16 @@ export function Dialogconfirm(props: Props) {
       <Text text={props.title} type="h2" styled="normal" color="white" />
 
       <div className="buttons">
-        <button className="confirm" onClick={confirmDialog}>
-          {props.textConfirm}
-        </button>
-        <button onClick={props.closeModal} className="cancel">
-          {props.textCancel}
-        </button>
+        <Button
+          type="confirm"
+          propsButton={{ onClick: confirmDialog }}
+          text={props.textConfirm}
+        />
+        <Button
+          propsButton={{ onClick: props.closeModal }}
+          type="cancel"
+          text={props.textCancel}
+        />
       </div>
     </Conteiner>
   );

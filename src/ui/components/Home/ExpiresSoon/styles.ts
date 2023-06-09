@@ -12,7 +12,7 @@ export const Conteiner = styled.div`
     align-items: center;
   }
   h3 {
-    margin-top: 15px;
+    margin-top: 0.9rem;
     font-weight: bold;
     font-size: large;
     text-align: center;
@@ -25,7 +25,7 @@ export const Conteiner = styled.div`
     }
   }
   table {
-    margin: 15px 0;
+    margin: 0.9rem 0rem;
     border-collapse: collapse;
     width: 90%;
     font-size: 0.9em;
@@ -33,8 +33,8 @@ export const Conteiner = styled.div`
     text-align: center;
 
     thead {
-      border-top: 2px solid var(--color-blue);
-      border-bottom: 2px solid var(--color-blue);
+      border-top: 0.12rem solid var(--color-blue);
+      border-bottom: 0.12rem solid var(--color-blue);
       th {
         font-weight: bold;
       }
@@ -42,11 +42,11 @@ export const Conteiner = styled.div`
 
     th,
     td {
-      padding: 5px;
+      padding: 0.3rem;
     }
 
     tbody tr:last-of-type {
-      border-bottom: 2px solid var(--color-blue);
+      border-bottom: 0.12rem solid var(--color-blue);
     }
 
     tbody tr.active-row {
@@ -54,7 +54,7 @@ export const Conteiner = styled.div`
       color: var(--color-blue);
     }
     p {
-      padding: 2px;
+      padding: 0.12rem;
       width: fit-content;
       margin: auto;
     }

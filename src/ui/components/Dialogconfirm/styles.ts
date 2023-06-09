@@ -11,15 +11,14 @@ export const Conteiner = styled.div`
   justify-content: space-between;
 
   > svg {
-    fill: red;
+    fill: var(--color-white);
     height: 25px;
     width: 25px;
     padding: 3px;
     cursor: pointer;
     align-self: flex-end;
     :hover {
-      background-color: red;
-      fill: white;
+      fill: var(--color-red);
     }
   }
   h2 {
@@ -29,30 +28,5 @@ export const Conteiner = styled.div`
     display: flex;
     justify-content: space-between;
     width: 80%;
-    button {
-      cursor: pointer;
-      background-color: var(--color-light-blue);
-      padding: 1em 2em;
-      border-radius: 1em;
-      border: 1px solid var(--color-white);
-      color: var(--color-white);
-
-      &.confirm {
-        background-color: var(--color-green);
-      }
-      &.cancel {
-        background-color: var(--color-red);
-      }
-
-      :hover {
-        background-color: var(--color-white);
-        &.confirm {
-          color: var(--color-green);
-        }
-        &.cancel {
-          color: var(--color-red);
-        }
-      }
-    }
   }
 `;

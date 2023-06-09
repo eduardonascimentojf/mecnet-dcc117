@@ -7,6 +7,8 @@ import { useAuth } from "../../../data/contexts/auth";
 import { apiJava } from "../../../data/api";
 import { toast } from "react-toastify";
 import { auxPrice } from "../../../helpers";
+import { ConteinerInput } from "../Input/styles";
+import { Text } from "../Text";
 
 type ListProps = {
   type: "vendas" | "pedidos";
@@ -73,7 +75,7 @@ export function ListSearch(props: ListProps) {
   return (
     <Conteiner>
       <div className="SearchButton">
-        <input
+        <ConteinerInput
           type="search"
           placeholder="Buscar..."
           value={search}
@@ -120,9 +122,12 @@ export function ListSearch(props: ListProps) {
         </tbody>
       </TableList>
       {!filteredList.length && (
-        <h3 className="notFound">
-          Nenhuma informação com '{search}' foi encontrado!
-        </h3>
+        <Text
+          text={"Nenhuma informação com '" + search + "' foi encontrado!"}
+          styled={"normal"}
+          type={"notFoundTable"}
+          color={"black"}
+        />
       )}
     </Conteiner>
   );

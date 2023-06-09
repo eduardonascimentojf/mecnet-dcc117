@@ -59,13 +59,7 @@ export const Conteiner = styled.div`
       margin: 0px 0px 0px 25px;
     }
   }
-  .notFound {
-    word-break: break-word;
-    width: 500px;
-    text-align: center;
-    margin: 30px;
-    font-size: 40px;
-  }
+
 `;
 
 export const TableList = styled.table`

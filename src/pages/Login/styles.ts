@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Conteiner = styled.div`
   background: var(--color-blue);
-  width: 100;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -11,41 +10,45 @@ export const Conteiner = styled.div`
   justify-content: center;
 
   input {
-    width: 360px;
-    margin: 5px 0;
+    width: 22.5rem;
+    margin: 0.3em 0;
+  }
+  .title {
+    font-family: "Lato", sans-serif;
+    font-size: 3.3rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--color-light-blue);
+    .fix {
+      color: var(--color-white);
+    }
+    .info {
+      color: var(--color-light-blue);
+      font-size: 2.5rem;
+      font-weight: 500;
+      font-style: italic;
+      border-bottom: 0.12rem solid var(--color-light-blue);
+    }
   }
   .mecnet {
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin: 5px 0;
+    margin: 0.5rem 0;
     img {
-      width: 60px;
-      height: 60px;
+      width: 3.8rem;
+      height: 3.8rem;
     }
     h2 {
-      margin: 10px 0;
+      margin: 1rem 0;
       font-weight: 800;
     }
   }
-
   form {
     display: flex;
     flex-direction: column;
-    input {
-      padding: 1em 2em;
-      color: black;
-      border-radius: 1em;
-    }
-    button {
-      transition: all 0.8s ease 0s;
-      p {
-        margin: 0;
-        width: 100%;
-      }
-      :hover {
-        background-color: var(--color-white);
-      }
-    }
+  }
+  button p {
+    margin: auto;
   }
 `;

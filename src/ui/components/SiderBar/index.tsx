@@ -35,31 +35,31 @@ export function SiderBar(props: Props) {
           </Link>
         </li>
         {props.items?.map((component, i) => (
-          <div key={i}>{component}</div>
+          <li key={i}>{component}</li>
         ))}
+        {props.home == true ? (
+          <li
+            className="lastItem"
+            onClick={() => {
+              signOut();
+            }}
+          >
+            <SiderBarItens
+              name="Sair"
+              isSelected={splitLocation[1] === "sair"}
+              icon={<BsBoxArrowInLeft />}
+            />
+          </li>
+        ) : (
+          <li className="lastItem" onClick={() => navigate(-1)}>
+            <SiderBarItens
+              name="Voltar"
+              isSelected={splitLocation[1] === "sair"}
+              icon={<BsArrowLeft />}
+            />
+          </li>
+        )}
       </ul>
-      {props.home == true ? (
-        <div
-          className="lastItem"
-          onClick={() => {
-            signOut();
-          }}
-        >
-          <SiderBarItens
-            name="Sair"
-            isSelected={splitLocation[1] === "sair"}
-            icon={<BsBoxArrowInLeft />}
-          />
-        </div>
-      ) : (
-        <div className="lastItem" onClick={() => navigate(-1)}>
-          <SiderBarItens
-            name="Voltar"
-            isSelected={splitLocation[1] === "sair"}
-            icon={<BsArrowLeft />}
-          />
-        </div>
-      )}
     </S.Conteiner>
   );
 }

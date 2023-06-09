@@ -35,10 +35,14 @@ export function Search(props: Props) {
     setIsOpen(false);
   }
   function openSort() {
-    setIsOpenSort(true);
+    if (isOpenSort) {
+      setIsOpenSort(false);
+    } else setIsOpenSort(true);
   }
   function clodeSort() {
-    setIsOpenSort(false);
+    if (isOpenSort) {
+      setIsOpenSort(false);
+    }
   }
 
   useMemo(() => {
@@ -47,7 +51,7 @@ export function Search(props: Props) {
   }, [sort]);
 
   return (
-    <Conteiner>
+    <Conteiner onClick={clodeSort}>
       <div className="test">
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -63,8 +67,8 @@ export function Search(props: Props) {
           <BsFunnel />
         </div>
       </div>
-      <div className="sort">
-        <p onClick={openSort}>Ordernar por:</p>
+      <div className="sort" onClick={openSort}>
+        <p>Ordernar por:</p>
         <div
           className={
             isOpenSort == true ? "sortModal openSort" : "sortModal closeSort"

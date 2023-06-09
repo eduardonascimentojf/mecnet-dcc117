@@ -2,7 +2,16 @@ import * as S from "./styles";
 export interface TextProps {
   text: string | undefined;
   styled: "normal" | "italic";
-  type: "h1" | "h2" | "h3" | "h4" | "p" | "span" | "errorRequired";
+  type:
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "p"
+    | "span"
+    | "errorRequired"
+    | "notFound"
+    | "notFoundTable";
   color: "white" | "black";
   required?: boolean;
   class_name?: string;
@@ -69,6 +78,26 @@ export function Text(props: TextProps) {
     >
       {props.text}
     </S.ErrorRequired>
+  ) : props.type === "notFound" ? (
+    <S.NotFound
+      className={props.class_name}
+      styled={props.styled}
+      type="h3"
+      text=""
+      color={props.color}
+    >
+      {props.text}
+    </S.NotFound>
+  ) : props.type === "notFoundTable" ? (
+    <S.NotFoundTable
+      className={props.class_name}
+      styled={props.styled}
+      type="h3"
+      text=""
+      color={props.color}
+    >
+      {props.text}
+    </S.NotFoundTable>
   ) : (
     <S.P styled={props.styled} type="p" text="" color={props.color}>
       {props.text}

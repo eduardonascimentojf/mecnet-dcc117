@@ -14,17 +14,26 @@ export const Conteiner = styled.div`
     justify-content: end;
     margin: 10px 0px;
   }
+
   .sort {
-    cursor: pointer;
-    text-align: center;
-    margin-right: 25px;
-    padding: 8px 15px;
-    background-color: var(--color-white-secondary);
-    border-radius: 25px 25px;
+    > p {
+      cursor: pointer;
+      text-align: center;
+      margin-right: 25px;
+      padding: 8px 15px;
+      background-color: var(--color-white-secondary);
+      border-radius: 25px 25px;
+      :hover {
+        background-color: var(--color-blue);
+        color: var(--color-white);
+      }
+    }
+
     .sortModal {
       position: absolute;
-      right: 36px;
       margin-top: 30px;
+      width: max-content;
+      transform: translateX(-50%);
       &.closeSort {
         display: none;
       }

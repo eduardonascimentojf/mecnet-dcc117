@@ -59,7 +59,7 @@ export const Conteiner = styled.div`
       margin: 0px 0px 0px 25px;
     }
   }
-  .notFound {
+  .notFoundTable {
     word-break: break-word;
     width: 500px;
     text-align: center;

@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
   --color-gray-rgba: 228, 228, 228;
   --color-gray: #E4E4E4;
   --color-gray-secondary: #dddddd;
+  --color-gray-dark: #383838;
   
   --color-blue-rgba: 025, 047, 079;
   --color-light-blue: #1E5BB4;
@@ -74,12 +75,12 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  min-width: 20rem;
   min-height: 100vh;
 }
 
 h1 {
-  margin-top: 15px;
+  margin-top: 0.9rem;
 font-weight: bold;
 font-size: large;
 text-align: center;
@@ -87,7 +88,7 @@ text-align: center;
 
 button:focus,
 button:focus-visible {
-  outline: 0px;
+  outline: 0rem;
 }
 input{
   background-color: #ffffff;
@@ -117,29 +118,32 @@ ul, li{
   grid-template-columns: 200px 1100px;
   background: var(--color-white);
   width: 100%;
-  gap: 15px;
+  gap: 0.9rem;
   min-height: 100vh;
   > h1 {
     text-align: center;
     width: 100%;
-    padding-bottom: 5px;
-    border-bottom: 2px solid var(--color-gray);
-    margin: 15px 0;
+    padding-bottom: 0.3rem;
+    border-bottom: 0.12rem solid var(--color-gray);
+    margin: 0.9rem 0;
   }
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     overflow-x: auto;
-    border-radius: 15px;
-    border: 2px solid var(--color-gray);
-    margin: 10px 0;
+    border-radius: 0.9rem;
+    border: 0.12rem solid var(--color-gray);
+    margin: 0.62rem 0rem;
+    width: -moz-available;
+    padding: 15px ;
   }
+  
 
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 25px;
+    padding-top: 1.56rem;
   }
 }
 }

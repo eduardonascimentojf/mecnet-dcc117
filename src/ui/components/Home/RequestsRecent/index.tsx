@@ -89,12 +89,21 @@ export function RequestsRecent({ class_name }: Props) {
               {iten.received ? (
                 <td className="complete">
                   {" "}
-                  <p>Completo</p>
+                  <Text
+                    text="Completo"
+                    color="black"
+                    type="p"
+                    styled="normal"
+                  />
                 </td>
               ) : (
                 <td className="notComplete">
-                  {" "}
-                  <p>Em aberto</p>{" "}
+                  <Text
+                    text="Em aberto"
+                    color="black"
+                    type="p"
+                    styled="normal"
+                  />
                 </td>
               )}
 

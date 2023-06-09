@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { Text } from "../../../ui/components/Text";
 import { apiJava } from "../../../data/api";
 import { AutoStock } from "../../../@types";
-
+import { useState } from "react";
 
 export interface propsSettingsAuto {
   PMin: number | undefined;
@@ -28,6 +28,7 @@ interface Props {
 }
 
 export function ModalAutomatic(props: Props) {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     formState: { errors },
@@ -46,7 +47,7 @@ export function ModalAutomatic(props: Props) {
         minQuantity: propsCreate.QMin,
       })
       .then((response) => {
-        console.log(response);
+        setIsLoading(true);
         props.set_settingsAuto({
           PMin: response.data.minPrice,
           PMax: response.data.maxPrice,
@@ -68,10 +69,11 @@ export function ModalAutomatic(props: Props) {
       .catch((err) => {
         console.log(err);
       });
+    setIsLoading(false);
   }
 
   async function disableAutoAux() {
-    console.log(props.id);
+    setIsLoading(true);
     await apiJava
       .put<AutoStock>("/stock/products/autoStock/" + props.id, {
         automates: false,
@@ -97,13 +99,13 @@ export function ModalAutomatic(props: Props) {
           progress: undefined,
           theme: "dark",
         });
-        console.log(response);
         props.set_editAuto(false);
         props.closeModal();
       })
       .catch((err) => {
         console.log(err);
       });
+    setIsLoading(false);
   }
 
   return (
@@ -184,6 +186,7 @@ export function ModalAutomatic(props: Props) {
               styled="italic"
               text="Quantidade Miníma"
               type="span"
+              required={true}
             />
             <input
               type="number"
@@ -237,10 +240,14 @@ export function ModalAutomatic(props: Props) {
           </div>
         </div>
         <div className="buttons">
-          <button className="confirm" type="submit">
+          <button className="confirm" type="submit" disabled={isLoading}>
             Automatizar
           </button>
-          <button onClick={() => disableAutoAux()} className="cancel">
+          <button
+            onClick={() => disableAutoAux()}
+            className="cancel"
+            disabled={isLoading}
+          >
             Desativar
           </button>
         </div>

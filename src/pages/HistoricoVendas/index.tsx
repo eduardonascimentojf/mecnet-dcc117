@@ -14,6 +14,7 @@ import { PDF_Venda } from "../../ui/components/PDF_Venda";
 import { useAuth } from "../../data/contexts/auth";
 
 export function HistoricoVendas() {
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
@@ -56,13 +57,25 @@ export function HistoricoVendas() {
               arg={["Codigo", "Cliente", "CPF", "Vendedor", "Peço", "Data"]}
             />
             <Button
+              disable={isLoading}
               text="Gerar relatório"
               icon={<BsFiletypePdf />}
-              propsButton={{ onClick: () => PDF_Venda(todasVendas, user) }}
+              type="info"
+              propsButton={{
+                onClick: () => {
+                  setIsLoading(true);
+                  PDF_Venda(todasVendas, user, setIsLoading);
+                },
+              }}
             />
           </>
         ) : (
-          <h3 className="notFound">Nenhuma venda encontrado!</h3>
+          <Text
+            text="Nenhuma venda encontrado!"
+            styled="normal"
+            type="notFound"
+            color="black"
+          />
         )}
       </main>
     </Conteiner>

@@ -6,7 +6,6 @@ export const Conteiner = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   h2 {
     font-weight: 800;
   }
@@ -15,8 +14,8 @@ export const Conteiner = styled.div`
     margin: 5px 0;
   }
 
-  svg {
-    fill: red;
+  > svg {
+    fill: var(--color-white);
     height: 25px;
     width: 25px;
     padding: 3px;
@@ -24,8 +23,7 @@ export const Conteiner = styled.div`
     align-self: flex-end;
     margin-right: 50px;
     :hover {
-      background-color: red;
-      fill: white;
+      fill: var(--color-red);
     }
   }
   input {
@@ -43,32 +41,6 @@ export const Conteiner = styled.div`
 
     .inputLabel {
       width: min-content;
-      span {
-        margin-right: 5px;
-      }
-
-      .isAdm {
-        display: flex;
-        align-content: center;
-        span {
-          margin-right: 15px;
-        }
-      }
-      .inputLabel {
-        display: flex;
-        flex-direction: column;
-        input {
-          padding: 1em 2em;
-          color: black;
-          border-radius: 1em;
-        }
-      }
-    }
-    button {
-    
-      :hover {
-        background-color: var(--color-white);
-      }
     }
   }
 `;

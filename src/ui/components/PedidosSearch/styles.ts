@@ -47,13 +47,6 @@ export const Conteiner = styled.div`
       }
     }
   }
-  .notFound {
-    word-break: break-word;
-    width: 500px;
-    text-align: center;
-    margin: 30px;
-    font-size: 40px;
-  }
   .button {
     display: flex;
     align-items: center;

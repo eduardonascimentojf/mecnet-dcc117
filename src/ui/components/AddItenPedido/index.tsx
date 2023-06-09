@@ -9,6 +9,8 @@ import { BsXCircle } from "react-icons/bs";
 import { Text } from "../Text";
 import { Button } from "../Button";
 import { auxPrice } from "../../../helpers";
+import { Loading } from "../Loading";
+import { ConteinerInput } from "../Input/styles";
 
 type IFormAdd = {
   productCatalogId: string;
@@ -24,35 +26,15 @@ interface Props {
 
 export function AddItenPedido(props: Props) {
   const [productCatalog, setProductCatalog] = useState<Catalog>();
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     apiJava
-      .get("/catalog/" + props.id)
+      .get<Catalog>("/catalog/" + props.id)
       .then((response) => {
         setProductCatalog(response.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<IFormAdd>();
-  const onSubmit: SubmitHandler<IFormAdd> = (data) => addItem(data);
-  async function addItem(propsAdd: IFormAdd) {
-    if (productCatalog == undefined) return;
-    await apiJava
-      .post(`/order/orderItems`, {
-        productCatalogId: props.id,
-        description: propsAdd.description,
-        amount: propsAdd.amount,
-        fullValue: propsAdd.amount * productCatalog.price,
-        price: productCatalog.price,
-      })
-      .then(() => {
-        toast.success("Produto adicionado com sucesso!", {
+      .catch(() => {
+        toast.error("Error interno", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: false,
@@ -63,20 +45,55 @@ export function AddItenPedido(props: Props) {
           theme: "dark",
         });
         props.closeModal();
-      })
-      .catch((err) => {
-        toast.error(err.response.data, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
       });
+  }, []);
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IFormAdd>();
+  const onSubmit: SubmitHandler<IFormAdd> = (data) => addItem(data);
+  async function addItem(propsAdd: IFormAdd) {
+    setIsLoading(true);
+    if (productCatalog != undefined)
+      await apiJava
+        .post(`/order/orderItems`, {
+          productCatalogId: props.id,
+          description: propsAdd.description,
+          amount: amount,
+          fullValue: propsAdd.amount * productCatalog.price,
+          price: productCatalog.price,
+        })
+        .then(() => {
+          console.log(propsAdd);
+          toast.success("Produto adicionado com sucesso!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          props.closeModal();
+        })
+        .catch((err) => {
+          toast.error(err.response.data, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        });
+    setIsLoading(false);
   }
+  const [amount, setAmount] = useState(1);
 
   return (
     <Conteiner>
@@ -85,77 +102,93 @@ export function AddItenPedido(props: Props) {
       <Text text="MECNET" type="h2" styled="normal" color="white" />
 
       <Text text="Adicionar item" type="h4" styled="normal" color="white" />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="inputs">
-          <div className="inputLabel">
+      {productCatalog == undefined ? (
+        <Loading />
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="inputs">
             <div className="inputLabel">
-              <Text
-                color="white"
-                styled="italic"
-                text="Nome"
-                type="span"
-                required={true}
-              />
-              <input
-                type="text"
-                defaultValue={productCatalog?.name}
-                placeholder="Nome"
-                {...register("description", {
-                  required: true,
-                })}
-              />
-              {errors.description?.type === "required" && (
+              <div className="inputLabel">
                 <Text
-                  type="errorRequired"
                   color="white"
                   styled="italic"
-                  text="Informe uma descrição"
+                  text="Nome"
+                  type="span"
+                  required={true}
                 />
-              )}
-            </div>
-            <div className="inputLabel">
-              <Text
-                color="white"
-                styled="italic"
-                text="Quantidade"
-                type="span"
-              />
-              <input
-                type="number"
-                min={1}
-                placeholder="Quantidade"
-                {...register("amount", {
-                  required: true,
-                  min: 1,
-                })}
-              />
-              {errors.amount && (
+                {productCatalog && (
+                  <ConteinerInput
+                    type="text"
+                    defaultValue={productCatalog.name}
+                    placeholder="Nome"
+                    {...register("description", {
+                      required: true,
+                    })}
+                  />
+                )}
+                {errors.description?.type === "required" && (
+                  <Text
+                    type="errorRequired"
+                    color="white"
+                    styled="italic"
+                    text="Informe uma descrição"
+                  />
+                )}
+              </div>
+              <div className="inputLabel">
                 <Text
-                  type="errorRequired"
                   color="white"
                   styled="italic"
-                  text="A quantidade deve ser maior que 0"
+                  text="Quantidade"
+                  type="span"
+                  required
                 />
-              )}
-            </div>
-            <div className="inputLabel">
-              <Text color="white" styled="italic" text="Preço" type="span" />
-              <input
-                type="number"
-                min={1}
-                step={0.01}
-                placeholder="Preço"
-                disabled
-                defaultValue={auxPrice(productCatalog?.price)}
-                {...register("price", {
-                  min: 1,
-                })}
-              />
+                <ConteinerInput
+                  type="number"
+                  min={1}
+                  defaultValue={1}
+                  placeholder="Quantidade"
+                  {...register("amount", {
+                    required: true,
+                    min: 1,
+                  })}
+                  onChange={() => setAmount(amount + 1)}
+                />
+                {errors.amount && (
+                  <Text
+                    type="errorRequired"
+                    color="white"
+                    styled="italic"
+                    text="Informe uma quantidade maior que 0"
+                  />
+                )}
+              </div>
+              <div className="inputLabel">
+                <Text color="white" styled="italic" text="Preço" type="span" />
+                {productCatalog && (
+                  <ConteinerInput
+                    type="number"
+                    min={1}
+                    step={0.01}
+                    placeholder="Preço"
+                    disabled
+                    value={auxPrice(productCatalog?.price * amount)}
+                    {...register("price", {
+                      min: 1,
+                    })}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <Button text="Adicionar" propsButton={{ type: "submit" }} />
-      </form>
+          <Button
+            text="Adicionar"
+            propsButton={{ type: "submit" }}
+            disable={isLoading}
+            type="confirm"
+          />
+        </form>
+      )}
     </Conteiner>
   );
 }
