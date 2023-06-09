@@ -11,7 +11,6 @@ import mecnet from "../../assets/mecnet.png";
 import { apiJava } from "../../data/api";
 import { User } from "../../@types";
 import { useState } from "react";
-import { Input } from "../../ui/components/Input";
 import { ConteinerInput } from "../../ui/components/Input/styles";
 
 type IFormLogin = {

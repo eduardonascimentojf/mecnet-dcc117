@@ -8,7 +8,6 @@ import { Text } from "../Text";
 import { CheckboxToggle } from "../../styles/checkboxToggle";
 import { Button } from "../Button";
 
-
 type IFormLogin = {
   name: string;
   email: string;
@@ -186,7 +185,11 @@ export function EditarUsuario(props: Props) {
             />
           </div>
         </div>
-        <Button text="Atualizar" propsButton={{ type: "submit" }} />
+        <Button
+          text="Atualizar"
+          propsButton={{ type: "submit" }}
+          type="confirm"
+        />
       </form>
     </Conteiner>
   );
