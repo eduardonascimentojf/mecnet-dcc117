@@ -10,17 +10,21 @@ interface Props {
 
 export function ProgressBar({ class_name }: Props) {
   const [fullStock, setFullStock] = useState(0);
+  let i = 0;
   useEffect(() => {
-    apiJava
-      .get("/stock")
-      .then((response) => {
-        setFullStock(
-          (100 * response.data.productsQuantity) / response.data.capacity
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (i == 0) {
+      i++;
+      apiJava
+        .get("/stock")
+        .then((response) => {
+          setFullStock(
+            (100 * response.data.productsQuantity) / response.data.capacity
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   return (

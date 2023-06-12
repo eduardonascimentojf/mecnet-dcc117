@@ -48,6 +48,7 @@ export function Estoque() {
                 image={iten.image}
                 price={iten.price}
                 name={iten.name}
+                stock={iten.stock}
                 description={iten.description}
                 key={i}
               />

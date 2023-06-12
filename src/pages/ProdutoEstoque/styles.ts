@@ -118,7 +118,7 @@ export const Conteiner = styled.div`
 
   .lastDiv {
     align-items: end;
-    justify-self: end;
     display: flex;
+    justify-content: space-around;
   }
 `;

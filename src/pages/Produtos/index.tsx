@@ -58,6 +58,7 @@ export function Produtos() {
               name={iten.name}
               image={iten.image}
               price={iten.price}
+              stock={iten.stock}
               description={iten.description}
               key={i}
             />

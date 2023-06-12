@@ -29,12 +29,20 @@ function App() {
               element={<P.HistoricoVendas />}
             />
             <Route path="vendas/consulta-total" element={<P.TodasVendas />} />
+            <Route path="vendas/cancelar-venda" element={<P.DeletaVenda />} />
             <Route
               path="/funcionarios"
               element={<P.Funcionarios />}
               id="route"
             />
+            <Route
+              path="/addCatalogo"
+              element={<P.NovoProdutoCatalogo />}
+              id="route"
+            />
+            <Route path="*" element={<P.NotFound />} />
           </Routes>
+
           <div className="notification">
             <ToastContainer />
           </div>

@@ -69,28 +69,9 @@ export const Conteiner = styled.div`
       width: 80%;
       margin: 30px auto;
       button {
-        cursor: pointer;
-        background-color: var(--color-light-blue);
-        padding: 1em 2em;
-        border-radius: 1em;
-        border: 1px solid var(--color-white);
-        color: var(--color-white);
-
-        &.confirm {
-          background-color: var(--color-green);
-        }
-        &.cancel {
-          background-color: var(--color-red);
-        }
-
-        :hover {
-          background-color: var(--color-white);
-          &.confirm {
-            color: var(--color-green);
-          }
-          &.cancel {
-            color: var(--color-red);
-          }
+        .loading-spinner {
+          border: 0.15rem solid var(--color-white);
+          border-top: 0.15rem solid var(--color-gray-dark);
         }
       }
     }

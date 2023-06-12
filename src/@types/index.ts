@@ -38,6 +38,7 @@ export type Product = {
   id: string;
   name: string;
   price: number;
+  stock: number;
   description: string;
   image: string[];
 };
@@ -77,4 +78,9 @@ export type User = {
   email: string;
   userName: string;
   isAdmin: boolean;
+};
+export type SaleProducts = {
+  id_productStock: string;
+  price: number;
+  amount: number;
 };

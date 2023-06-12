@@ -6,7 +6,7 @@ import { CheckboxToggle } from "../../styles/checkboxToggle";
 import { useAuth } from "../../../data/contexts/auth";
 import { apiJava } from "../../../data/api";
 import { toast } from "react-toastify";
-import { auxPrice } from "../../../helpers";
+import { auxDate, auxPrice } from "../../../helpers";
 import { ConteinerInput } from "../Input/styles";
 import { Text } from "../Text";
 
@@ -35,13 +35,7 @@ export function ListSearch(props: ListProps) {
     return result;
   }, [props.list, search]);
   const { user } = useAuth();
-  function auxDate(dataString: string | undefined) {
-    if (dataString === undefined) return;
-    const data = dataString.split("T");
-    const hour = data[1].split(":");
-    const date = data[0].split("-");
-    return `${date[2]}/${date[1]}/${date[0]} | ${hour[0]}:${hour[1]}h  `;
-  }
+
   async function setReceived(id: string) {
     apiJava
       .get("/order/setReceived/" + id)

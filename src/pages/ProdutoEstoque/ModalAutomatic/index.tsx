@@ -9,6 +9,7 @@ import { Text } from "../../../ui/components/Text";
 import { apiJava } from "../../../data/api";
 import { AutoStock } from "../../../@types";
 import { useState } from "react";
+import { Button } from "../../../ui/components/Button";
 
 export interface propsSettingsAuto {
   PMin: number | undefined;
@@ -38,6 +39,7 @@ export function ModalAutomatic(props: Props) {
   const onSubmit: SubmitHandler<propsSettingsAuto> = (data) =>
     updateSetting(data);
   async function updateSetting(propsCreate: propsSettingsAuto) {
+    setIsLoading(true);
     await apiJava
       .put<AutoStock>("/stock/products/autoStock/" + props.id, {
         automates: true,
@@ -66,8 +68,17 @@ export function ModalAutomatic(props: Props) {
         });
         props.closeModal();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error("Erro interno!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       });
     setIsLoading(false);
   }
@@ -102,8 +113,17 @@ export function ModalAutomatic(props: Props) {
         props.set_editAuto(false);
         props.closeModal();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error("Erro interno!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       });
     setIsLoading(false);
   }
@@ -240,16 +260,18 @@ export function ModalAutomatic(props: Props) {
           </div>
         </div>
         <div className="buttons">
-          <button className="confirm" type="submit" disabled={isLoading}>
-            Automatizar
-          </button>
-          <button
-            onClick={() => disableAutoAux()}
-            className="cancel"
-            disabled={isLoading}
-          >
-            Desativar
-          </button>
+          <Button
+            text="Automatizar"
+            type="confirm"
+            disable={isLoading}
+            propsButton={{ type: "submit" }}
+          />
+          <Button
+            text="Desativar"
+            type="cancel"
+            disable={isLoading}
+            propsButton={{ onClick: () => disableAutoAux() }}
+          />
         </div>
       </form>
     </Conteiner>

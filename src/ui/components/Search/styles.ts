@@ -111,4 +111,11 @@ export const Conteiner = styled.div`
       margin-right: 10px;
     }
   }
+  @media (max-width: 1350px) {
+    align-items: start;
+    justify-content: start;
+    .test {
+      justify-content: start;
+    }
+  }
 `;

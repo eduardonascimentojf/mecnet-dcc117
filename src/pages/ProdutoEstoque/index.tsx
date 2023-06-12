@@ -15,6 +15,9 @@ import { apiJava } from "../../data/api";
 import { Stock } from "../../@types";
 import { auxPrice } from "../../helpers";
 import { Carousel } from "react-carousel-minimal";
+import { EditarProduto } from "../EditarProduto";
+import { useProduct } from "../../data/contexts/product";
+
 export function ProdutoEstoque() {
   const params = useParams();
   const location = useLocation();
@@ -45,12 +48,24 @@ export function ProdutoEstoque() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
+
+  function openModalEdit() {
+    setIsOpenEdit(true);
+  }
+  function closeModalEdit() {
+    setIsOpenEdit(false);
+  }
+  const { product } = useProduct();
   const [stock, setStock] = useState<Stock>();
   const [editAuto, seteditAuto] = useState(false);
   const [settingsAuto, setSettingsAuto] = useState<propsSettingsAuto>();
+  const [id, setId] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       if (params.produtoID != undefined) {
+        setId(params.produtoID);
         await apiJava
           .get<Stock>("/stock/products/" + params.produtoID)
           .then((response) => {
@@ -66,7 +81,7 @@ export function ProdutoEstoque() {
       }
     };
     fetchData();
-  }, []);
+  }, [product]);
   const data: { image: string }[] = [];
   stock?.image.map((iten) => {
     data.push({
@@ -165,6 +180,15 @@ export function ProdutoEstoque() {
             </div>
             <div className="lastDiv">
               <Button text="Mais detalhes" type="info" />
+              <Button
+                text="Gerencia estoque"
+                type="info"
+                propsButton={{
+                  onClick: () => {
+                    openModalEdit();
+                  },
+                }}
+              />
             </div>
           </div>
           <Modal
@@ -205,6 +229,28 @@ export function ProdutoEstoque() {
           class_name="notFound"
         />
       )}
+      <Modal
+        isOpen={modalIsOpenEdit}
+        onRequestClose={closeModalEdit}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0, .93)",
+            zIndex: "1000",
+            overflowY: "scroll",
+          },
+          content: {
+            zIndex: "1000",
+            border: "2px solid var(--color-light-blue)",
+            backgroundColor: "var(--color-blue)",
+            overflow: "hidden",
+            borderRadius: "20px",
+            outline: " none",
+          },
+        }}
+      >
+        <EditarProduto closeModal={closeModalEdit} id={id} />
+      </Modal>
     </Conteiner>
   );
 }

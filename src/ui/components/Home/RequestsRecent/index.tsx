@@ -88,7 +88,6 @@ export function RequestsRecent({ class_name }: Props) {
 
               {iten.received ? (
                 <td className="complete">
-                  {" "}
                   <Text
                     text="Completo"
                     color="black"

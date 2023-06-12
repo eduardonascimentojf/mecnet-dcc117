@@ -37,6 +37,12 @@ export const Conteiner = styled.button`
     width: 1rem;
     margin-right: 0.9rem;
   }
+  &:disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: no-drop;
+  }
   :hover {
     &.info {
       background: var(--color-light-blue);
@@ -54,8 +60,14 @@ export const Conteiner = styled.button`
       background: var(--color-light-green);
     }
     .loading-spinner {
-      border: 0.12rem solid var(--color-light-blue);
-      border-top: 0.12rem solid var(--color-gray-dark);
+      border: 0.15rem solid var(--color-white);
+      border-top: 0.15rem solid var(--color-gray-dark);
+    }
+    &:disabled {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: no-drop;
     }
   }
 `;
@@ -65,8 +77,8 @@ export const Spinner = styled.div`
   .loading-spinner {
     width: 0.9rem;
     height: 0.9rem;
-    border: 0.12rem solid var(--color-white);
-    border-top: 0.12rem solid var(--color-gray-secondary);
+    border: 0.15rem solid var(--color-blue);
+    border-top: 0.15rem solid var(--color-gray);
     border-radius: 100%;
     animation: spinner 1.5s linear infinite;
   }

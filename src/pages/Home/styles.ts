@@ -28,4 +28,11 @@ export const Conteiner = styled.div`
       overflow-y: auto;
     }
   }
+  @media (max-width: 1200px) {
+    .main {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: max-content;
+    }
+  }
 `;

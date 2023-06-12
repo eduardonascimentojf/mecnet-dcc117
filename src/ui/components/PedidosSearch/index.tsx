@@ -338,7 +338,14 @@ export function PedidosSearch() {
         />
       )}
 
-      {!pedidos && <h3 className="notFound">Nenhum pedido ativo!</h3>}
+      {!pedidos && (
+        <Text
+          text="Nenhum pedido ativo!"
+          color="black"
+          styled="normal"
+          type="notFoundTable"
+        />
+      )}
 
       {user?.isAdmin && pedidos && (
         <div className="button">

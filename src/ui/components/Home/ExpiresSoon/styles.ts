@@ -58,6 +58,15 @@ export const Conteiner = styled.div`
       width: fit-content;
       margin: auto;
     }
+    .name {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -moz-box-orient: vertical;
+      margin: auto;
+      text-align: center;
+    }
+
     .complete p {
       background-color: rgba(var(--color-green-rgba), 0.5);
     }

@@ -3,7 +3,7 @@
 import React from "react";
 import { createContext, ReactNode, useState } from "react";
 import { apiJava } from "../api";
-import { Catalog, Stock } from "../../@types";
+import { Catalog, Product, Stock } from "../../@types";
 
 type ProductContextData = {
   product: Stock[] | null;
@@ -11,7 +11,8 @@ type ProductContextData = {
   searchProducts: (_search: string, _sort: string) => void;
   getProducts: () => void;
   getProductById: (id: string) => void;
-
+  productVenda: Product[];
+  setProductVenda: React.Dispatch<React.SetStateAction<Product[]>>;
   productCatalog: Catalog[] | null;
   setProductCatalog: React.Dispatch<React.SetStateAction<Catalog[] | null>>;
   searchProductsCatalog: (_search: string, _sort: string) => void;
@@ -28,6 +29,7 @@ type ProductProvider = {
 export function ProductProvider(props: ProductProvider) {
   const [product, setProduct] = useState<Stock[] | null>(null);
   const [productCatalog, setProductCatalog] = useState<Catalog[] | null>(null);
+  const [productVenda, setProductVenda] = useState<Product[]>([]);
   function searchProducts(_search: string, _sort: string) {
     apiJava
       .get(
@@ -81,7 +83,8 @@ export function ProductProvider(props: ProductProvider) {
         searchProducts,
         getProducts,
         getProductById,
-
+        productVenda,
+        setProductVenda,
         productCatalog,
         setProductCatalog,
         searchProductsCatalog,

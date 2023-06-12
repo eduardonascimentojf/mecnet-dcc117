@@ -19,7 +19,11 @@ export function ProdutosItens(props: Product) {
 
   return (
     <>
-      <Conteiner key={props.id} onClick={() => openModal()}>
+      <Conteiner
+        key={props.id}
+        onClick={() => openModal()}
+        className={props.stock == 0 ? "indispo" : "dispo"}
+      >
         <img src={props.image[0]} alt={props.name} />
         <div>
           <Text type="h4" text={props.name} color="black" styled="normal" />
@@ -29,12 +33,16 @@ export function ProdutosItens(props: Product) {
             color="black"
             styled="normal"
           />
-          <Text
-            type="p"
-            text={"R$ " + auxPrice(props.price)}
-            color="black"
-            styled="normal"
-          />
+          {props.stock == 0 ? (
+            <Text type="p" text="Indisponível" color="black" styled="normal" />
+          ) : (
+            <Text
+              type="p"
+              text={"R$ " + auxPrice(props.price)}
+              color="black"
+              styled="normal"
+            />
+          )}
         </div>
       </Conteiner>
 

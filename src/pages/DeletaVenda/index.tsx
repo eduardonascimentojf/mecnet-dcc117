@@ -10,7 +10,7 @@ import { VendasType } from "../../@types";
 import { apiJava } from "../../data/api";
 import { ListVendaSearch } from "../../ui/components/ListVendaSearch";
 
-export function TodasVendas() {
+export function DeletaVenda() {
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
@@ -31,7 +31,7 @@ export function TodasVendas() {
   const { user } = useAuth();
   if (user?.isAdmin) {
     array.push(
-      <Link to="/consulta-total">
+      <Link to="/vendas/consulta-total">
         <SiderBarItens
           name="Consulta total"
           isSelected={splitLocation[2] === "consulta-total"}
@@ -49,16 +49,24 @@ export function TodasVendas() {
           <SiderBar items={array} />
           <main>
             <Text
-              text="Todas as vendas"
+              text="Cancelar uma venda"
               color="black"
-              type="h3"
+              type="h1"
               styled="normal"
             />
             {todasVendas != undefined ? (
               <ListVendaSearch
-                type={"pedidos"}
+                type={"remove"}
                 list={todasVendas}
-                arg={["Codigo", "Cliente", "CPF", "Vendedor", "Peço", "Data"]}
+                arg={[
+                  "Codigo",
+                  "Cliente",
+                  "CPF",
+                  "Vendedor",
+                  "Peço",
+                  "Data",
+                  "Remover",
+                ]}
               />
             ) : (
               <h3 className="notFound">Nenhuma venda foi encontrado!</h3>

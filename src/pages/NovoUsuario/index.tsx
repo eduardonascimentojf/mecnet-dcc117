@@ -132,7 +132,13 @@ export function NovoUsuario(props: Props) {
             )}
           </div>
           <div className="inputLabel">
-            <Text color="white" styled="italic" text="Usuário" type="span" />
+            <Text
+              color="white"
+              styled="italic"
+              text="Usuário"
+              type="span"
+              required
+            />
             <input
               type="text"
               placeholder="Usuário"
@@ -178,7 +184,13 @@ export function NovoUsuario(props: Props) {
             )}
           </div>
           <div className="isAdm">
-            <Text color="white" styled="italic" text="É gerente" type="span" />
+            <Text
+              color="white"
+              styled="italic"
+              text="É gerente"
+              type="span"
+              required
+            />
             <CheckboxToggle
               type="checkbox"
               placeholder="É gerente"

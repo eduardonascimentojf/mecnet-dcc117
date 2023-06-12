@@ -97,4 +97,16 @@ export const TableList = styled.table`
     background-color: var(--color-light-blue);
     color: var(--color-white);
   }
+  td.delete {
+    cursor: pointer;
+    svg {
+      fill: var(--color-light-red);
+    }
+    :hover {
+      background-color: var(--color-red);
+      svg {
+        fill: var(--color-white);
+      }
+    }
+  }
 `;

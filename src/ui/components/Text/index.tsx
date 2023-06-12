@@ -99,7 +99,13 @@ export function Text(props: TextProps) {
       {props.text}
     </S.NotFoundTable>
   ) : (
-    <S.P styled={props.styled} type="p" text="" color={props.color}>
+    <S.P
+      styled={props.styled}
+      type="p"
+      text=""
+      color={props.color}
+      className={props.class_name}
+    >
       {props.text}
     </S.P>
   );

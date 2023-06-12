@@ -1,6 +1,19 @@
 import styled from "styled-components";
 
 export const Conteiner = styled.div`
+  &.indispo {
+    img {
+      opacity: 0.3;
+    }
+    p {
+      color: var(--color-red);
+    }
+    > div:hover {
+      p {
+        color: var(--color-red) !important;
+      }
+    }
+  }
   display: flex;
   flex-direction: column;
   width: 11.25rem;

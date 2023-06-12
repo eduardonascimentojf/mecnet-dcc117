@@ -10,7 +10,6 @@ interface Props {
   class_name: string;
 }
 
-
 export function ExpiresSoon({ class_name }: Props) {
   const { searchProducts, product } = useProduct();
   useEffect(() => {
@@ -39,7 +38,7 @@ export function ExpiresSoon({ class_name }: Props) {
         <Link to="/estoque">
           <Text
             class_name="verMais"
-            text={"Ver todos ->"}
+            text={"Ver todos"}
             styled={"italic"}
             type={"span"}
             color={"black"}
@@ -60,7 +59,7 @@ export function ExpiresSoon({ class_name }: Props) {
           {product?.slice(0, 3).map((iten, i) => (
             <tr key={i}>
               <td>{iten.id.split("-")[0]}</td>
-              <td>{iten.name}</td>
+              <td className="name">{iten.name}</td>
               <td>R$ {auxPrice(iten.price)}</td>
               <td>{iten.stock}</td>
             </tr>

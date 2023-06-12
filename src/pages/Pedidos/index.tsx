@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
+
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { Link, useLocation } from "react-router-dom";
 import { BsCardChecklist, BsCart2 } from "react-icons/bs";
@@ -34,12 +34,12 @@ export function Pedidos() {
     </Link>,
   ];
   return (
-    <Conteiner>
+    <div>
       <SiderBar items={array} />
       <main>
-        <Text text="Pedidos" color="black" type="h3" styled="normal" />
+        <Text text="Pedidos" color="black" type="h1" styled="normal" />
         <PedidosSearch />
       </main>
-    </Conteiner>
+    </div>
   );
 }

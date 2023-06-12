@@ -29,7 +29,7 @@ export const Span = styled.span<TextProps>`
   }
 `;
 export const ErrorRequired = styled.span<TextProps>`
-  color: var(--color-gray);
+  color: ${(props) => props.color};
   font-style: ${(props) => props.styled};
   text-align: end;
   font-size: smaller;

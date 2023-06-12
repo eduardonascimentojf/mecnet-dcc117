@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { SiderBar } from "../../ui/components/SiderBar";
 import { Text } from "../../ui/components/Text";
-import { Conteiner } from "./styles";
 import { SiderBarItens } from "../../ui/components/SiderBarItens";
 import { Link, useLocation } from "react-router-dom";
 import { BsCartCheck, BsCartX, BsJournalText } from "react-icons/bs";
 import { useAuth } from "../../data/contexts/auth";
+import { RealizaVenda } from "../../ui/components/RealizaVenda";
 
 export function Vendas() {
   const location = useLocation();
@@ -51,11 +51,12 @@ export function Vendas() {
     );
   }
   return (
-    <Conteiner>
+    <div>
       <SiderBar items={array} />
       <main>
-        <Text text="Vendas" color="black" type="h3" styled="normal" />
+        <Text text="Vendas" color="black" type="h1" styled="normal" />
+        <RealizaVenda />
       </main>
-    </Conteiner>
+    </div>
   );
 }

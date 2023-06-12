@@ -8,6 +8,9 @@ import { ProdutoEstoque } from "./ProdutoEstoque";
 import { HistoricoPedidos } from "./HistoricoPedidos";
 import { HistoricoVendas } from "./HistoricoVendas";
 import { TodasVendas } from "./TodasVendas";
+import { DeletaVenda } from "./DeletaVenda";
+import { NovoProdutoCatalogo } from "./NovoProdutoCatalogo";
+import { NotFound } from "./NotFound";
 export {
   Home,
   Produtos,
@@ -19,4 +22,7 @@ export {
   HistoricoPedidos,
   HistoricoVendas,
   TodasVendas,
+  DeletaVenda,
+  NovoProdutoCatalogo,
+  NotFound,
 };
