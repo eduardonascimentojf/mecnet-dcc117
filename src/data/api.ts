@@ -4,6 +4,5 @@ export const api = axios.create({
 });
 
 export const apiJava = axios.create({
-  // baseURL: "https://mecnetapi-production.up.railway.app/",
-  baseURL: "http://localhost:8080/",
+  baseURL: "https://mecnetapi-production.up.railway.app/",
 });
