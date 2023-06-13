@@ -16,6 +16,7 @@ export const Conteiner = styled.div`
   }
 
   .sort {
+    z-index: 999999;
     > p {
       cursor: pointer;
       text-align: center;
