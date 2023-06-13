@@ -9,6 +9,7 @@ import { Loading } from "../../ui/components/Loading";
 import { ConteinerInput } from "../../ui/components/Input/styles";
 import { useState } from "react";
 import { useProduct } from "../../data/contexts/product";
+import { ConteinerTetextarea } from "../../ui/styles/texarea";
 
 interface Props {
   closeModal: () => void;
@@ -128,7 +129,7 @@ export function EditarProduto(props: Props) {
                 type="span"
                 required={true}
               />
-              <textarea
+              <ConteinerTetextarea
                 defaultValue={element?.description}
                 placeholder="Descrição"
                 {...register("description", {

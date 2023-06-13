@@ -7,7 +7,6 @@ import { useAuth } from "../../../data/contexts/auth";
 import { apiJava } from "../../../data/api";
 import { toast } from "react-toastify";
 import { auxDate, auxPrice } from "../../../helpers";
-import { ConteinerInput } from "../Input/styles";
 import { Text } from "../Text";
 
 type ListProps = {
@@ -69,7 +68,7 @@ export function ListSearch(props: ListProps) {
   return (
     <Conteiner>
       <div className="SearchButton">
-        <ConteinerInput
+        <input
           type="search"
           placeholder="Buscar..."
           value={search}

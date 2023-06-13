@@ -2,11 +2,12 @@ import { BsSearch, BsTrash3 } from "react-icons/bs";
 import { Conteiner, TableList } from "./styles";
 import { useEffect, useMemo, useState } from "react";
 import { VendasType } from "../../../@types";
-import { auxPrice } from "../../../helpers";
+import { auxCPF, auxDate, auxPrice } from "../../../helpers";
 import { Dialogconfirm } from "../Dialogconfirm";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 import { apiJava } from "../../../data/api";
+
 type ListProps = {
   type: "vendas" | "pedidos" | "remove";
   list: VendasType[];
@@ -40,13 +41,7 @@ export function ListVendaSearch(props: ListProps) {
     }
     return result;
   }, [props.list, search]);
-  function auxDate(dataString: string | undefined) {
-    if (dataString === undefined) return;
-    const data = dataString.split("T");
-    const hour = data[1].split(":");
-    const date = data[0].split("-");
-    return `${date[2]}/${date[1]}/${date[0]} | ${hour[0]}:${hour[1]}h  `;
-  }
+
   useEffect(() => {
     if (isDelete === true) {
       setIsDelete(false);
@@ -107,7 +102,7 @@ export function ListVendaSearch(props: ListProps) {
                 <tr key={i}>
                   <td>{iten.id.split("-")[0]}</td>
                   <td>{iten.client}</td>
-                  <td>{iten.cpfClient}</td>
+                  <td>{auxCPF(iten.cpfClient)}</td>
                   <td>{iten.seller}</td>
                   <td>{auxPrice(iten.price)}</td>
                   <td>{auxDate(iten.createdAt)}</td>
@@ -126,7 +121,7 @@ export function ListVendaSearch(props: ListProps) {
                 <tr key={i}>
                   <td>{iten.id.split("-")[0]}</td>
                   <td>{iten.client}</td>
-                  <td>{iten.cpfClient}</td>
+                  <td>{auxCPF(iten.cpfClient)}</td>
                   <td>{iten.seller}</td>
                   <td>{auxPrice(iten.price)}</td>
                   <td>{auxDate(iten.createdAt)}</td>

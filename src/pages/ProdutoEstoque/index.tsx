@@ -103,10 +103,9 @@ export function ProdutoEstoque() {
                 slideNumber={true}
                 automatic={false}
                 dots={true}
-                pauseIconColor="white"
                 pauseIconSize="40px"
                 slideBackgroundColor="darkgrey"
-                slideImageFit="fill"
+                slideImageFit="cover"
                 thumbnails={false}
                 style={{
                   height: "200px",

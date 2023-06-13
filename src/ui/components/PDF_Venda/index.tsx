@@ -2,7 +2,7 @@ import { User, VendasType } from "../../../@types";
 import * as pdfMake from "pdfmake/build/pdfmake.js";
 import * as pdfFonts from "pdfmake/build/vfs_fonts.js";
 
-import { auxDate, auxPrice } from "../../../helpers";
+import { auxCPF, auxDate, auxPrice } from "../../../helpers";
 export function PDF_Venda(
   vendas: VendasType[],
   user: User | null,
@@ -28,7 +28,7 @@ export function PDF_Venda(
     return [
       { text: venda.id.split("-")[0], fontSize: 9, margin: [0, 2, 0, 2] },
       { text: venda.client, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: venda.cpfClient, fontSize: 9, margin: [0, 2, 0, 2] },
+      { text: auxCPF(venda.cpfClient), fontSize: 9, margin: [0, 2, 0, 2] },
       { text: auxPrice(venda.price), fontSize: 9, margin: [0, 2, 0, 2] },
       { text: auxDate(venda.createdAt), fontSize: 9, margin: [0, 2, 0, 2] },
     ];

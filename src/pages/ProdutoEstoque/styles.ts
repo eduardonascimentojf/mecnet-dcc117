@@ -6,6 +6,19 @@ export const Conteiner = styled.div`
     img {
       height: 250px !important;
     }
+    .prev,
+    .next {
+      color: var(--color-blue);
+      :hover {
+        color: var(--color-light-blue);
+      }
+    }
+    .dot.active {
+      background: var(--color-light-blue);
+      :hover {
+        background: var(--color-blue);
+      }
+    }
   }
   h3:not(.notFound) {
     width: 80%;

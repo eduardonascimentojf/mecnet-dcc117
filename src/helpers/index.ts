@@ -9,3 +9,6 @@ export function auxDate(dataString: string | undefined) {
 export function auxPrice(price?: number) {
   if (price != undefined) return price.toFixed(2).replace(".", ",");
 }
+export function auxCPF(cpf: string) {
+  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+}

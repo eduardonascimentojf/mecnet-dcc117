@@ -146,13 +146,15 @@ export function AddItenPedido(props: Props) {
                 <ConteinerInput
                   type="number"
                   min={1}
-                  defaultValue={1}
                   placeholder="Quantidade"
                   {...register("amount", {
                     required: true,
                     min: 1,
                   })}
-                  onChange={() => setAmount(amount + 1)}
+                  onChange={(e) => {
+                    if (parseInt(e.target.value) > 1)
+                      setAmount(parseInt(e.target.value));
+                  }}
                 />
                 {errors.amount && (
                   <Text
