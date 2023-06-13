@@ -7,7 +7,7 @@ import { useProduct } from "../../../data/contexts/product";
 import { useMemo, useState } from "react";
 import { FilterProduct } from "../Filters/FilterProduct";
 import { Sort } from "../Sort";
-import { Input } from "../Input";
+
 type IFormInput = {
   search: string;
 };
@@ -55,7 +55,7 @@ export function Search(props: Props) {
     <Conteiner onClick={clodeSort}>
       <div className="test">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
+          <input
             type="search"
             placeholder="Buscar..."
             {...register("search")}
