@@ -156,7 +156,7 @@ export function EditarUsuario(props: Props) {
             )}
           </div>
           <div className="inputLabel">
-            <Text color="white" styled="italic" text="Senha" type="span" />
+            <Text color="black" styled="italic" text="Senha" type="span" />
             <input
               type="password"
               placeholder="Senha"

@@ -1,19 +1,20 @@
 import { User, VendasType } from "../../../@types";
-import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts.js";
-import { auxDate, auxPrice } from "../../../helpers";
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import { auxDate, auxPrice } from "../../../helpers";
 export function PDF_Venda(
   vendas: VendasType[],
   user: User | null,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   function date() {
     const data = new Date();
     data.setHours(data.getHours() - 3);
     return data.toJSON();
   }
+
   const reportTitle = [
     {
       text: "Histórico de Vendas - MECNET",

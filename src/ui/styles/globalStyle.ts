@@ -81,9 +81,9 @@ body {
 
 h1 {
   margin-top: 0.9rem;
-font-weight: bold;
-font-size: large;
-text-align: center;
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
 }
 
 button:focus,

@@ -167,11 +167,11 @@ export function AddItenPedido(props: Props) {
                 <Text color="white" styled="italic" text="Preço" type="span" />
                 {productCatalog && (
                   <ConteinerInput
-                    type="number"
+                    type="text"
                     min={1}
                     step={0.01}
                     placeholder="Preço"
-                    disabled
+                    readOnly
                     value={auxPrice(productCatalog?.price * amount)}
                     {...register("price", {
                       min: 1,

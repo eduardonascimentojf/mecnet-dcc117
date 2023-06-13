@@ -8,7 +8,7 @@ import { BsCardChecklist, BsListOl } from "react-icons/bs";
 import { useProduct } from "../../data/contexts/product";
 import { Search } from "../../ui/components/Search";
 import { ProdutosItens } from "../../ui/components/ProdutosItens";
-// import { Loading } from "../../ui/components/Loading";
+
 
 export function Estoque() {
   const location = useLocation();

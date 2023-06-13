@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 import { apiJava } from "../api";
 import { User } from "../../@types";
 
-
-
 type AuthContextData = {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
@@ -38,9 +36,14 @@ export function AuthProvider(props: AuthProvider) {
       const token = localStorage.getItem("@User:token");
       if (token) {
         apiJava.defaults.headers.common.authorization = `Bearer ${token}`;
-        await apiJava.get<User>("/authenticate").then((response) => {
-          setUser(response.data);
-        });
+        await apiJava
+          .get<User>("/authenticate")
+          .then((response) => {
+            setUser(response.data);
+          })
+          .catch(() => {
+            localStorage.removeItem("@User:token");
+          });
       }
     };
     fetchData();
