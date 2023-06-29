@@ -14,9 +14,9 @@
 ## Integrantes do Grupo
 
 - [Eduardo Araujo](https://github.com/eduardonascimentojf);
-- [Nome 2](https://github.com/Nome2);
-- [Nome 3](https://github.com/Nome3).
-- [Nome 4](https://github.com/Nome4).
+- [Gabriel Medeiros](https://github.com/gabmm);
+- [Matheus Peron](https://github.com/MatheusPeronRC).
+- [VICTOR SCHIAVO](https://github.com/Schhiavo).
 
 [↑ Sumário](#sumário)
 
@@ -80,12 +80,6 @@ ou
 ## Observações para o Grupo
 
 Permissões dos usuários
-
-| user  | password | Admin |
-| :---: |   :---:  | :---: |
-| 1     | 1        | Não   |
-| 2     | 2        | Não   |
-| admin | admin    | Sim   |
 
 
 ### Rotina de Push:
