@@ -79,6 +79,9 @@ export const TableList = styled.table`
   td {
     padding: 12px 15px;
   }
+  td {
+    vertical-align: middle;
+  }
   td:nth-child(5) {
     :not(.disable) {
       cursor: pointer;
