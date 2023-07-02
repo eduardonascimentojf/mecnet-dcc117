@@ -16,7 +16,7 @@ export const Conteiner = styled.div`
   }
 
   .sort {
-    z-index: 999999;
+    z-index: 999;
     > p {
       cursor: pointer;
       text-align: center;
@@ -45,7 +45,7 @@ export const Conteiner = styled.div`
     min-height: 100vh;
     top: 0;
     margin: 10px;
-
+    z-index: 999;
     position: absolute;
     &.closeFilter {
       display: none;

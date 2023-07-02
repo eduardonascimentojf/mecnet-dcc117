@@ -80,11 +80,13 @@ export const TableList = styled.table`
     padding: 12px 15px;
   }
   td:nth-child(5) {
-    cursor: pointer;
-    :hover {
-      background-color: green;
-      svg {
-        fill: var(--color-white);
+    :not(.disable) {
+      cursor: pointer;
+      :hover {
+        background-color: green;
+        svg {
+          fill: var(--color-white);
+        }
       }
     }
   }

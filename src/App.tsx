@@ -17,6 +17,7 @@ function App() {
 
             <Route path="/produtos" element={<P.Produtos />} />
             <Route path="/pedidos" element={<P.Pedidos />} />
+            <Route path="/pedido/:pedidoID" element={<P.ProdutoPedido />} />
             <Route path="/estoque" element={<P.Estoque />} />
             <Route path="/estoque/:produtoID" element={<P.ProdutoEstoque />} />
             <Route path="/vendas" element={<P.Vendas />} />

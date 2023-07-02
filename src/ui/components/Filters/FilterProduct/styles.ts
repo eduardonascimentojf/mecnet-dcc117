@@ -9,7 +9,6 @@ export const Conteiner = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
-
   > svg {
     fill: white;
     height: 25px;

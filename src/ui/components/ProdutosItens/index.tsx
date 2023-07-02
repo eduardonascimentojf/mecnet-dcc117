@@ -54,15 +54,14 @@ export function ProdutosItens(props: Product) {
           overlay: {
             backgroundColor: "rgba(0,0,0, .93)",
             zIndex: "1000",
-            overflowY: "scroll",
           },
           content: {
             zIndex: "1000",
             border: "2px solid var(--color-light-blue)",
             backgroundColor: "var(--color-blue)",
-            overflow: "hidden",
+            overflowY: "auto",
             borderRadius: "20px",
-            outline: " none",
+            outline: "none",
             width: "60%",
             margin: "auto",
           },

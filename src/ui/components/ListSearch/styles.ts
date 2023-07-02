@@ -59,7 +59,6 @@ export const Conteiner = styled.div`
       margin: 0px 0px 0px 25px;
     }
   }
-
 `;
 
 export const TableList = styled.table`
@@ -72,7 +71,9 @@ export const TableList = styled.table`
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
-
+  a {
+    color: var(--color-black);
+  }
   thead tr {
     background-color: var(--color-blue);
     color: var(--color-white);
@@ -90,5 +91,8 @@ export const TableList = styled.table`
   tbody tr:nth-of-type(even) {
     background-color: var(--color-light-blue);
     color: var(--color-white);
+    a {
+      color: var(--color-white);
+    }
   }
 `;

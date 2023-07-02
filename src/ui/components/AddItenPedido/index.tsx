@@ -147,6 +147,7 @@ export function AddItenPedido(props: Props) {
                   type="number"
                   min={1}
                   placeholder="Quantidade"
+                  defaultValue={amount}
                   {...register("amount", {
                     required: true,
                     min: 1,

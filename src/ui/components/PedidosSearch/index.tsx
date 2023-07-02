@@ -232,6 +232,7 @@ export function PedidosSearch() {
           {filteredRequests.map((iten, i) => (
             <tr key={i}>
               <td>{iten.description}</td>
+
               <td>{iten.amount}</td>
               <td>{auxPrice(iten.price)}</td>
               <td>{auxPrice(iten.fullValue)}</td>

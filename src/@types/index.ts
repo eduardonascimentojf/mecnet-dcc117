@@ -5,6 +5,8 @@ export type ListOrderItems = {
   amount: number;
   price: number;
   fullValue: number;
+  createdAt?: string;
+  updatedAt?: string;
 };
 export type PedidoType = {
   id: string;

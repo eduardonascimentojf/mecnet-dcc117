@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Conteiner = styled.div`
   background: var(--color-blue);
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 15px auto;
   h2 {
     font-weight: 800;
   }
@@ -31,14 +31,11 @@ export const Conteiner = styled.div`
     margin: 5px 0;
   }
   form {
-    height: 400px;
-    overflow-y: auto;
-    width: 900px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     .inputLabel {
       width: min-content;
     }

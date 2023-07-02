@@ -10,7 +10,7 @@ import { Button } from "../../ui/components/Button";
 import { apiJava } from "../../data/api";
 import { VendasType } from "../../@types";
 import { ListVendaSearch } from "../../ui/components/ListVendaSearch";
-import { PDF_Venda } from "../../ui/components/PDF_Venda";
+import { VendaPDF } from "../../ui/components/PDFs/VendaPDF";
 import { useAuth } from "../../data/contexts/auth";
 
 export function HistoricoVendas() {
@@ -64,7 +64,7 @@ export function HistoricoVendas() {
               propsButton={{
                 onClick: () => {
                   setIsLoading(true);
-                  PDF_Venda(todasVendas, user, setIsLoading);
+                  VendaPDF(todasVendas, user, setIsLoading);
                 },
               }}
             />

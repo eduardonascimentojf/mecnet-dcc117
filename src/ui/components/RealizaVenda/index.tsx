@@ -1,6 +1,6 @@
 import { Conteiner, ConteinerCard } from "./styles";
 import { Text } from "../Text";
-import { ConteinerInput } from "../Input/styles";
+import { ConteinerInput, ConteinerInputMask } from "../Input/styles";
 import { useEffect, useState } from "react";
 import { apiJava } from "../../../data/api";
 import { Product, SaleProducts } from "../../../@types";
@@ -88,7 +88,7 @@ export function RealizaVenda() {
         <div>
           <fieldset>
             <Text
-              text="Nome do Coliente"
+              text="Nome do Cliente"
               type="span"
               required
               color="black"
@@ -114,21 +114,22 @@ export function RealizaVenda() {
           </fieldset>
           <fieldset>
             <Text
-              text="CPF do Coliente"
+              text="CPF do Cliente"
               type="span"
               required
               color="black"
               styled="italic"
             />
-            <ConteinerInput
-              type="text"
+            <ConteinerInputMask
+              mask="999.999.999-99"
               placeholder="CPF do cliente"
               {...register("cpfClient", {
                 required: true,
-                minLength: 11,
-                maxLength: 11,
+                minLength: 14,
+                maxLength: 14,
               })}
             />
+
             {errors.cpfClient && (
               <Text
                 type="errorRequired"

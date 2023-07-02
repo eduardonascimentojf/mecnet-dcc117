@@ -8,6 +8,7 @@ import { apiJava } from "../../../data/api";
 import { toast } from "react-toastify";
 import { auxDate, auxPrice } from "../../../helpers";
 import { Text } from "../Text";
+import { Link } from "react-router-dom";
 
 type ListProps = {
   type: "vendas" | "pedidos";
@@ -89,8 +90,14 @@ export function ListSearch(props: ListProps) {
         <tbody>
           {filteredList.map((iten, i) => (
             <tr key={i}>
-              <td>{iten.id.split("-")[0]}</td>
-              <td>{iten.listOrderItems[0].description}</td>
+              <td>
+                <Link to={"/pedido/" + iten.id}>{iten.id.split("-")[0]}</Link>
+              </td>
+              <td>
+                <Link to={"/pedido/" + iten.id}>
+                  {iten.listOrderItems[0].description}
+                </Link>
+              </td>
               <td>{auxPrice(iten.fullValue)}</td>
               <td>{auxDate(iten.createdAt)}</td>
               {user?.isAdmin == false || iten.received == true ? (

@@ -6,6 +6,7 @@ import { Vendas } from "./Vendas";
 import { Funcionarios } from "./Funcionarios";
 import { ProdutoEstoque } from "./ProdutoEstoque";
 import { HistoricoPedidos } from "./HistoricoPedidos";
+import { ProdutoPedido } from "./ProdutoPedido";
 import { HistoricoVendas } from "./HistoricoVendas";
 import { TodasVendas } from "./TodasVendas";
 import { DeletaVenda } from "./DeletaVenda";
@@ -20,6 +21,7 @@ export {
   Funcionarios,
   ProdutoEstoque,
   HistoricoPedidos,
+  ProdutoPedido,
   HistoricoVendas,
   TodasVendas,
   DeletaVenda,

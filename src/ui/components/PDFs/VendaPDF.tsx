@@ -3,7 +3,7 @@ import * as pdfMake from "pdfmake/build/pdfmake.js";
 import * as pdfFonts from "pdfmake/build/vfs_fonts.js";
 
 import { auxCPF, auxDate, auxPrice } from "../../../helpers";
-export function PDF_Venda(
+export function VendaPDF(
   vendas: VendasType[],
   user: User | null,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -68,7 +68,7 @@ export function PDF_Venda(
     },
   ];
 
-  function Rodape(currentPage: any, pageCount: any) {
+  function Rodape(currentPage: number, pageCount: number) {
     return [
       {
         text: "Gerado por @mecnet  " + currentPage + " / " + pageCount,
@@ -79,7 +79,7 @@ export function PDF_Venda(
     ];
   }
 
-  const docDefinitios: any = {
+  const docDefinitios = {
     pageSize: "A4",
     pageMargins: [15, 50, 15, 40],
 
@@ -89,6 +89,7 @@ export function PDF_Venda(
   };
   return (
     pdfMake.createPdf(docDefinitios).download("hist_venda_" + user?.name),
+    // pdfMake.createPdf(docDefinitios).open({}, window.open("hist_venda_" + user?.name, "_blank")),
     setIsLoading(false)
   );
 }
