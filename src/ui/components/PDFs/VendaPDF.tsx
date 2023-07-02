@@ -88,8 +88,10 @@ export function VendaPDF(
     footer: Rodape,
   };
   return (
-    pdfMake.createPdf(docDefinitios).download("hist_venda_" + user?.name),
-    // pdfMake.createPdf(docDefinitios).open({}, window.open("hist_venda_" + user?.name, "_blank")),
+    // pdfMake.createPdf(docDefinitios).download("hist_venda_" + user?.name),
+    pdfMake
+      .createPdf(docDefinitios)
+      .open({}, window.open("hist_venda_" + user?.name, "_blank")),
     setIsLoading(false)
   );
 }
